@@ -18,6 +18,6 @@ class TasksController extends Controller
         //$div = $achievement_tasks_num / $tasks_num;
         //$achievment_rate = (round($div,2)) * 100;
 
-        return view('task.index',compact('tasks'));
+        return view('task.index',compact($tasks));
     }
 }
