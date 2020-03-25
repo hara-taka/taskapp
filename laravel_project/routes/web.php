@@ -19,6 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/tasks/{user_id}','TasksController@index');
+Route::get('/tasks/{user_id}','TasksController@index')->name('tasks.index');
+
+Route::post('/tasks/{user_id}/store','TasksController@store')->name('tasks.store');
+
+Route::get('/tasks/{user_id}/{task_id}/edit','TasksController@edit')->name('tasks.edit');
+
+Route::post('/tasks/{user_id}/{task_id}/update','TasksController@update')->name('tasks.update');
+
+Route::delete('/tasks/{user_id}/{task_id}/destroy','TasksController@destroy')->name('tasks.destroy');
 
 Route::get('/home', 'HomeController@index')->name('home');
