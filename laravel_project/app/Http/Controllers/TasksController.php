@@ -18,7 +18,7 @@ class TasksController extends Controller
         //$div = $achievement_tasks_num / $tasks_num;
         //$achievment_rate = (round($div,2)) * 100;
 
-        return view('task.index',compact($tasks,$user_id));
+        return view('task.index',compact('tasks','user_id'));
     }
 
 
@@ -37,11 +37,11 @@ class TasksController extends Controller
     }
 
 
-    public function edit(int $task_id,$user_id)
+    public function edit(int $user_id, int $task_id)
     {
         $task = Task::find($task_id);
 
-        return view('task.edit',compact($task,$user_id));
+        return view('task.edit',compact('task','user_id'));
     }
 
 
@@ -58,7 +58,8 @@ class TasksController extends Controller
 
     public function destroy(int $user_id, int $task_id)
     {
-        Task::where('id',$task_id)->delete();
+        $task = Task::find($task_id);
+        $task->delete();
 
         return redirect()->route('tasks.index', [
         'user_id' => $user_id,
