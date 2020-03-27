@@ -13,12 +13,16 @@ class TasksController extends Controller
         $tasks = Task::where('date',$today)->where('user_id',$user_id)->get();
 
         //達成率の計算処理
-        //$tasks_num = Task::where(date,$today)->count();
-        //$achievement_tasks_num = Task::where(status,)->count();
-        //$div = $achievement_tasks_num / $tasks_num;
-        //$achievment_rate = (round($div,2)) * 100;
+        $tasks_num = Task::where('user_id',$user_id)->where('date',$today)->count();
+        $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
+        if($tasks_num){
+            $div = $achievement_tasks_num / $tasks_num;
+            $achievment_rate = (round($div,2)) * 100;
+        }else{
+            $achievment_rate = 0;
+        }
 
-        return view('task.index',compact('tasks','user_id'));
+        return view('task.index',compact('tasks','user_id','achievment_rate'));
     }
 
 
@@ -27,7 +31,7 @@ class TasksController extends Controller
         $task = new Task();
         $task->name = $request->name;
         $task->date = date('Y-m-d');
-        $task->status = 1;
+        $task->status = $request->status;
         $task->user_id = $user_id;
         $task->save();
 
@@ -49,6 +53,7 @@ class TasksController extends Controller
     {
         $task = Task::find($task_id);
         $task->name = $request->name;
+        $task->status = $request->status;
         $task->save();
 
         return redirect()->route('tasks.index', [
