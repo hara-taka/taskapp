@@ -29,4 +29,10 @@ Route::post('/tasks/{user_id}/{task_id}/update','TasksController@update')->name(
 
 Route::delete('/tasks/{user_id}/{task_id}/destroy','TasksController@destroy')->name('tasks.destroy');
 
+Route::get('/groups','GroupsController@index')->name('groups.index');
+
+Route::get('/groups/create','GroupsController@create')->name('groups.create');
+
+Route::Post('/groups/store','GroupsController@store')->name('groups.store');
+
 Route::get('/home', 'HomeController@index')->name('home');
