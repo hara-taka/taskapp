@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Task');
     }
+
+    public function group_members()
+    {
+        return $this->hasOne('App\GroupMember');
+    }
 }
