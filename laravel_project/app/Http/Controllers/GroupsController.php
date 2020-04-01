@@ -34,22 +34,22 @@ class GroupsController extends Controller
     {
         $group = Group::find($group_id);
 
-        $group_member_num = GroupMember::where('group_id',$group_id)->count();
+        $group_member_num = $group->group_members->count();
 
-        $member = User::with('group_members')->get();
+        $members = GroupMember::where('group_id',$group_id)->get();
 
-        return view('group.details',compact('group','group_id','member','group_member_num'));
+        return view('group.details',compact('group','members','group_member_num'));
     }
 
     public function participate(int $group_id)
     {
-        $usr_id = Auth::id();
-        $group_member_num = GroupMember::where('group_id',$group_id)->count();
+        $user_id = Auth::id();
+        $group_member_num = $group->group_members->count();
 
         if($group_member_num < 6){
             $group_member = new GroupMember();
             $group_member->group_id = $group_id;
-            $group_member->user_id = $usr_id;
+            $group_member->user_id = $user_id;
             $group_member->save();
         }
 
