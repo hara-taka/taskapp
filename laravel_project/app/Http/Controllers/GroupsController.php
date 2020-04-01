@@ -46,7 +46,7 @@ class GroupsController extends Controller
         $user_id = Auth::id();
         $group_member_num = $group->group_members->count();
 
-        if($group_member_num < 6){
+        if($group_member_num < 5){
             $group_member = new GroupMember();
             $group_member->group_id = $group_id;
             $group_member->user_id = $user_id;
