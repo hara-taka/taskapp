@@ -33,6 +33,10 @@ Route::get('/groups','GroupsController@index')->name('groups.index');
 
 Route::get('/groups/create','GroupsController@create')->name('groups.create');
 
-Route::Post('/groups/store','GroupsController@store')->name('groups.store');
+Route::post('/groups/store','GroupsController@store')->name('groups.store');
+
+Route::get('/groups/{group_id}','GroupsController@details')->name('groups.details');
+
+Route::post('/groups/{group_id}','GroupsController@participate')->name('groups.participate');
 
 Route::get('/home', 'HomeController@index')->name('home');

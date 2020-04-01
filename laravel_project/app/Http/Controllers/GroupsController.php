@@ -29,4 +29,30 @@ class GroupsController extends Controller
 
         return redirect()->route('groups.index');
     }
+
+    public function details(int $group_id)
+    {
+        $group = Group::find($group_id);
+
+        $group_member_num = $group->group_members->count();
+
+        $members = GroupMember::where('group_id',$group_id)->get();
+
+        return view('group.details',compact('group','members','group_member_num'));
+    }
+
+    public function participate(int $group_id)
+    {
+        $user_id = Auth::id();
+        $group_member_num = $group->group_members->count();
+
+        if($group_member_num < 5){
+            $group_member = new GroupMember();
+            $group_member->group_id = $group_id;
+            $group_member->user_id = $user_id;
+            $group_member->save();
+        }
+
+        return redirect()->route('groups.index');
+    }
 }
