@@ -31,6 +31,8 @@ Route::delete('/tasks/{user_id}/{task_id}/destroy','TasksController@destroy')->n
 
 Route::get('/groups','GroupsController@index')->name('groups.index');
 
+Route::get('/groups/search','GroupsController@search')->name('groups.search');
+
 Route::get('/groups/create','GroupsController@create')->name('groups.create');
 
 Route::post('/groups/store','GroupsController@store')->name('groups.store');
