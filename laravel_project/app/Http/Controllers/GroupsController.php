@@ -55,4 +55,34 @@ class GroupsController extends Controller
 
         return redirect()->route('groups.index');
     }
+
+    public function search(Request $request)
+    {
+        $category = $request->input('category');
+        $sort = $request->input('sort');
+        $keyword = $request->input('keyword');
+
+        $query = Group::query();
+
+        if(!empty($category)){
+            $query->where('category', 'LIKE', "%{$category}%");
+
+        }
+
+        if(!empty($keyword)){
+            $query->where('name', 'LIKE', "%{$keyword}%")
+                ->orWhere('category', 'LIKE', "%{$keyword}%")
+                ->orWhere('comment', 'LIKE', "%{$keyword}%");
+        }
+
+        if($sort == 'asc'){
+          $query->orderBy('created_at', 'asc');
+        }elseif($sort == 'desc'){
+          $query->orderBy('created_at', 'desc');
+        }
+
+        $groups = $query->get();
+
+        return view('group.index',compact('groups'));
+    }
 }
