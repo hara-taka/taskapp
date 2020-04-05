@@ -41,4 +41,14 @@ Route::get('/groups/{group_id}','GroupsController@details')->name('groups.detail
 
 Route::post('/groups/{group_id}','GroupsController@participate')->name('groups.participate');
 
+Route::get('/profile/{user_id}','ProfileController@index')->name('profile.index');
+
+Route::get('/profile/{user_id}/edit','ProfileController@edit')->name('profile.edit');
+
+Route::post('/profile/{user_id}/update','ProfileController@update')->name('profile.update');
+
+Route::get('/profile/{user_id}/editPassword','ProfileController@editPassword')->name('profile.editPassword');
+
+Route::post('/profile/{user_id}/updatePassword','ProfileController@updatePassword')->name('profile.updatePassword');
+
 Route::get('/home', 'HomeController@index')->name('home');
