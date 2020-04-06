@@ -11,11 +11,11 @@ use Hash;
 
 class ProfileController extends Controller
 {
-    public function index(int $user_id)
+    public function show(int $user_id)
     {
         $profile = User::find($user_id);
 
-        return view('profile.index',compact('profile','user_id'));
+        return view('profile.show',compact('profile','user_id'));
     }
 
     public function edit(int $user_id)
@@ -40,7 +40,7 @@ class ProfileController extends Controller
         }
         $profile->save();
 
-        return redirect()->route('profile.index', [
+        return redirect()->route('profile.show', [
         'user_id' => $user_id
         ]);
     }
@@ -63,7 +63,7 @@ class ProfileController extends Controller
         $profile->password = Hash::make($request->new_password);
         $profile->save();
 
-        return redirect()->route('profile.index', [
+        return redirect()->route('profile.show', [
         'user_id' => $user_id
         ]);
     }

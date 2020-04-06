@@ -41,7 +41,7 @@ Route::get('/groups/{group_id}','GroupsController@details')->name('groups.detail
 
 Route::post('/groups/{group_id}','GroupsController@participate')->name('groups.participate');
 
-Route::get('/profile/{user_id}','ProfileController@index')->name('profile.index');
+Route::get('/profile/{user_id}','ProfileController@show')->name('profile.show');
 
 Route::get('/profile/{user_id}/edit','ProfileController@edit')->name('profile.edit');
 
