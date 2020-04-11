@@ -10,6 +10,8 @@ use App\Task;
 use Auth;
 use Hash;
 use Carbon\Carbon;
+use TaskService;
+use CalendarService;
 
 class ProfileController extends Controller
 {
@@ -23,25 +25,15 @@ class ProfileController extends Controller
         $month = $dt->month;
 
         //カレンダー表示日の配列
-        $dates = getCalendarDates($year, $month);
+        $dates = CalendarService::calendarDates($year, $month);
 
-        //１ヶ月分のタスク達成率を達成率を表示させるための
-        //カレンダーに表示させる最初の日($data)と
-        //カレンダーに表示させる日数($count)
-        list($date, $count) = getTaskAchievementDates($year, $month);
+        //カレンダー表示用タスク達成率に必要な情報を取得
+        //$data:カレンダーに表示させる最初の日
+        //$count:カレンダーに表示させる日数
+        list($date, $count) = CalendarService::calendarTaskAchievementDates($year, $month);
 
         //カレンダー表示用のタスク達成率の配列
-        for ($i = 0; $i < $count; $i++, $date->addDay()) {
-            $tasks_num = Task::where('user_id',$user_id)->where('date',$date)->count();
-            $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
-            if($tasks_num){
-                $div = $achievement_tasks_num / $tasks_num;
-                $achievment_rate = (round($div,2)) * 100;
-            }else{
-                $achievment_rate = 0;
-            }
-            $tasks[] = $achievment_rate;
-        }
+        $tasks = TaskService::calendarTaskAchievement($count,$date,$user_id);
 
         return view('profile.show',compact('profile','user_id','dates','dt','tasks'));
     }
