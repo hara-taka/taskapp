@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use TaskService;
 
 class TasksController extends Controller
 {
@@ -13,14 +14,7 @@ class TasksController extends Controller
         $tasks = Task::where('date',$today)->where('user_id',$user_id)->get();
 
         //達成率の計算処理
-        $tasks_num = Task::where('user_id',$user_id)->where('date',$today)->count();
-        $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
-        if($tasks_num){
-            $div = $achievement_tasks_num / $tasks_num;
-            $achievment_rate = (round($div,2)) * 100;
-        }else{
-            $achievment_rate = 0;
-        }
+        $achievment_rate = TaskService::taskAchievementCalculation($user_id,$today);
 
         return view('task.index',compact('tasks','user_id','achievment_rate'));
     }
