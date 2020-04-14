@@ -15,17 +15,19 @@ use CalendarService;
 
 class ProfileController extends Controller
 {
-    public function show(int $user_id)
+    public function show(int $user_id,$dt='this_month',$change_month='this_month')
     {
         $profile = User::find($user_id);
 
-        //現在の年、月を取得
-        $dt = Carbon::now();
+        //カレンダー表示用の年、月の取得
+        //カレンダー前月、翌月表示処理
+        $dt = CalendarService::calendarDate($dt,$change_month);
+
         $year = $dt->year;
         $month = $dt->month;
 
         //カレンダー表示日の配列
-        $dates = CalendarService::calendarDates($year, $month);
+        $dates = CalendarService::calendarShowDates($year, $month);
 
         //カレンダー表示用タスク達成率に必要な情報を取得
         //$data:カレンダーに表示させる最初の日

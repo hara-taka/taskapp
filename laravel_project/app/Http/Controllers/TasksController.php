@@ -8,42 +8,45 @@ use TaskService;
 
 class TasksController extends Controller
 {
-    public function index(int $user_id)
+    public function index(int $user_id,$date='today')
     {
-        $today = date('Y-m-d');
-        $tasks = Task::where('date',$today)->where('user_id',$user_id)->get();
+        if($date == 'today'){
+            $date = date('Y-m-d');
+            $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
+        } else {
+             $date = substr($date, 0, 10);
+             $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
+        }
 
         //達成率の計算処理
-        $achievment_rate = TaskService::taskAchievementCalculation($user_id,$today);
+        $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
 
-        return view('task.index',compact('tasks','user_id','achievment_rate'));
+        return view('task.index',compact('tasks','user_id','achievment_rate','date'));
     }
 
-
-    public function store(int $user_id,Request $request)
+    public function store(int $user_id,Request $request,$date)
     {
-        $task = new Task();
-        $task->name = $request->name;
-        $task->date = date('Y-m-d');
-        $task->status = $request->status;
-        $task->user_id = $user_id;
-        $task->save();
+            $task = new Task();
+            $task->name = $request->name;
+            $task->date = $date;
+            $task->status = $request->status;
+            $task->user_id = $user_id;
+            $task->save();
 
         return redirect()->route('tasks.index', [
-        'user_id' => $user_id,
+        'user_id' => $user_id,'date' => $date
         ]);
     }
 
 
-    public function edit(int $user_id, int $task_id)
+    public function edit(int $user_id, int $task_id,$date)
     {
         $task = Task::find($task_id);
 
-        return view('task.edit',compact('task','user_id'));
+        return view('task.edit',compact('task','user_id','date'));
     }
 
-
-    public function update(int $user_id, int $task_id, Request $request)
+    public function update(int $user_id, int $task_id, Request $request,$date)
     {
         $task = Task::find($task_id);
         $task->name = $request->name;
@@ -51,17 +54,17 @@ class TasksController extends Controller
         $task->save();
 
         return redirect()->route('tasks.index', [
-        'user_id' => $user_id,
+        'user_id' => $user_id, 'date' => $date
         ]);
     }
 
-    public function destroy(int $user_id, int $task_id)
+    public function destroy(int $user_id, int $task_id,$date)
     {
         $task = Task::find($task_id);
         $task->delete();
 
         return redirect()->route('tasks.index', [
-        'user_id' => $user_id,
+        'user_id' => $user_id,'date' => $date
         ]);
     }
 }

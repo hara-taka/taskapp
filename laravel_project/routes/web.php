@@ -19,15 +19,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/tasks/{user_id}','TasksController@index')->name('tasks.index');
+Route::get('/tasks/{user_id}/{date?}','TasksController@index')->name('tasks.index');
 
-Route::post('/tasks/{user_id}/store','TasksController@store')->name('tasks.store');
+Route::post('/tasks/{user_id}/{date}/store','TasksController@store')->name('tasks.store');
 
-Route::get('/tasks/{user_id}/{task_id}/edit','TasksController@edit')->name('tasks.edit');
+Route::get('/tasks/{user_id}/{task_id}/{date}/edit','TasksController@edit')->name('tasks.edit');
 
-Route::post('/tasks/{user_id}/{task_id}/update','TasksController@update')->name('tasks.update');
+Route::post('/tasks/{user_id}/{task_id}/{date}/update','TasksController@update')->name('tasks.update');
 
-Route::delete('/tasks/{user_id}/{task_id}/destroy','TasksController@destroy')->name('tasks.destroy');
+Route::delete('/tasks/{user_id}/{task_id}/{date}/destroy','TasksController@destroy')->name('tasks.destroy');
 
 Route::get('/groups','GroupsController@index')->name('groups.index');
 
@@ -41,7 +41,7 @@ Route::get('/groups/{group_id}','GroupsController@details')->name('groups.detail
 
 Route::post('/groups/{group_id}','GroupsController@participate')->name('groups.participate');
 
-Route::get('/profile/{user_id}','ProfileController@show')->name('profile.show');
+Route::get('/profile/{user_id}/{dt?}/{change_month?}','ProfileController@show')->name('profile.show');
 
 Route::get('/profile/{user_id}/edit','ProfileController@edit')->name('profile.edit');
 

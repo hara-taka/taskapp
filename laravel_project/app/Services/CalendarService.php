@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 class CalendarService {
     //カレンダー表示日を取得
-    public function calendarDates($year, $month)
+    public function calendarShowDates($year, $month)
     {
         $dateStr = sprintf('%04d-%02d-01', $year, $month);
         $date = new Carbon($dateStr);
@@ -37,5 +37,21 @@ class CalendarService {
         $count = ceil($count / 7) * 7;
 
         return array($date, $count);
+    }
+
+    public function calendarDate($dt,$change_month)
+    {
+        //カレンダー表示用の年、月の取得
+        //カレンダー前月、翌月表示処理
+        if($dt == 'this_month'){
+            $dt = Carbon::now();
+        } elseif($change_month == 'prev') {
+            $dt = new Carbon($dt);
+            $dt = $dt->subMonthsNoOverflow();
+        } elseif($change_month == 'next') {
+            $dt = new Carbon($dt);
+            $dt = $dt->addMonthsNoOverflow();
+        }
+        return $dt;
     }
 }

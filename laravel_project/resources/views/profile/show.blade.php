@@ -11,7 +11,11 @@
     <h2>メールアドレス:{{$profile->email}}</h2>
   </div>
   <div>
-    <h1>{{$dt->year}}年{{$dt->month}}月</h1>
+    <h1>
+      <a href="{{ route('profile.show', ['user_id' => $user_id,'dt' => $dt,'change_month' => 'prev']) }}">前月</a>
+      {{$dt->year}}年{{$dt->month}}月
+      <a href="{{ route('profile.show', ['user_id' => $user_id,'dt' => $dt,'change_month' => 'next']) }}">翌月</a>
+    </h1>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -24,12 +28,12 @@
         @foreach (array_map(NULL, $dates, $tasks) as [ $date, $task ])
         @if ($date->dayOfWeek == 0)
         <tr>
-        @endif
-          <td>
-            {{$date->day}}</br>
-            {{$task}}
-          </td>
-        @if ($date->dayOfWeek == 6)
+          @endif
+            <td>
+              <a href="{{ route('tasks.index', ['user_id' => $user_id,'date' => $date]) }}">{{ $date->day}}</a></br>
+              {{$task}}
+            </td>
+          @if ($date->dayOfWeek == 6)
         </tr>
         @endif
         @endforeach
