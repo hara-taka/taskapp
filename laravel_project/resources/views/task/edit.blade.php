@@ -1,7 +1,7 @@
 <div class="editTask_header">
-  <h1>タスク編集</h1>
+  <h1>タスク編集:{{$date}}</h1>
     <div class="taskEditWrapper">
-      <form action="{{ route('tasks.update', ['user_id' => $user_id,'task_id' => $task->id]) }}" method="post">
+      <form action="{{ route('tasks.update', ['user_id' => $user_id,'task_id' => $task->id,'date' => $date]) }}" method="post">
         {{csrf_field()}}
           <input type="text" name="name" value="{{ $task -> name }}">
           <select name="status">
