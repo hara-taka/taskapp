@@ -41,7 +41,7 @@ Route::get('/groups/{group_id}','GroupsController@details')->name('groups.detail
 
 Route::post('/groups/{group_id}','GroupsController@participate')->name('groups.participate');
 
-Route::get('/profile/{user_id}/{calender_year?}/{calender_month?}/{change_month?}','ProfileController@show')->name('profile.show');
+Route::get('/profile/{user_id}/{dt?}/{change_month?}','ProfileController@show')->name('profile.show');
 
 Route::get('/profile/{user_id}/edit','ProfileController@edit')->name('profile.edit');
 

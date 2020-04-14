@@ -12,9 +12,9 @@
   </div>
   <div>
     <h1>
-      <a href="{{ route('profile.show', ['user_id' => $user_id,'calender_year' => $year,'calender_month' => $month-1,'change_month' => 'prev']) }}">前月</a>
-      {{$year}}年{{$month}}月
-      <a href="{{ route('profile.show', ['user_id' => $user_id,'calender_year' => $year,'calender_month' => $month+1,'change_month' => 'next']) }}">翌月</a>
+      <a href="{{ route('profile.show', ['user_id' => $user_id,'dt' => $dt,'change_month' => 'prev']) }}">前月</a>
+      {{$dt->year}}年{{$dt->month}}月
+      <a href="{{ route('profile.show', ['user_id' => $user_id,'dt' => $dt,'change_month' => 'next']) }}">翌月</a>
     </h1>
     <table class="table table-bordered">
       <thead>

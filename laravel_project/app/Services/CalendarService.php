@@ -39,30 +39,19 @@ class CalendarService {
         return array($date, $count);
     }
 
-    public function calendarDate($calender_year,$calender_month,$change_month)
+    public function calendarDate($dt,$change_month)
     {
         //カレンダー表示用の年、月の取得
         //カレンダー前月、翌月表示処理
-        if($calender_month == 'this_month'){
+        if($dt == 'this_month'){
             $dt = Carbon::now();
-            $year = $dt->year;
-            $month = $dt->month;
         } elseif($change_month == 'prev') {
-            $year = $calender_year;
-            $month = $calender_month;
-            if($calender_month == 0){
-                $year = $calender_year-1;
-                $month = 12;
-            }
+            $dt = new Carbon($dt);
+            $dt = $dt->subMonthsNoOverflow();
         } elseif($change_month == 'next') {
-            $year = $calender_year;
-            $month = $calender_month;
-            if($calender_month == 13){
-                $year = $calender_year+1;
-                $month = 1;
-            }
+            $dt = new Carbon($dt);
+            $dt = $dt->addMonthsNoOverflow();
         }
-
-        return array($year, $month);
+        return $dt;
     }
 }

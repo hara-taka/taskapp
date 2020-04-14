@@ -15,13 +15,16 @@ use CalendarService;
 
 class ProfileController extends Controller
 {
-    public function show(int $user_id,$calender_year='this_year',$calender_month='this_month',$change_month='this_month')
+    public function show(int $user_id,$dt='this_month',$change_month='this_month')
     {
         $profile = User::find($user_id);
 
         //カレンダー表示用の年、月の取得
         //カレンダー前月、翌月表示処理
-        list($year, $month) = CalendarService::calendarDate($calender_year,$calender_month,$change_month);
+        $dt = CalendarService::calendarDate($dt,$change_month);
+
+        $year = $dt->year;
+        $month = $dt->month;
 
         //カレンダー表示日の配列
         $dates = CalendarService::calendarShowDates($year, $month);
@@ -34,7 +37,7 @@ class ProfileController extends Controller
         //カレンダー表示用のタスク達成率の配列
         $tasks = TaskService::calendarTaskAchievement($count,$date,$user_id);
 
-        return view('profile.show',compact('profile','user_id','dates','year','month','tasks'));
+        return view('profile.show',compact('profile','user_id','dates','dt','tasks'));
     }
 
     public function edit(int $user_id)
