@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Group;
+use App\GroupMember;
 
 use Illuminate\Http\Request;
 
