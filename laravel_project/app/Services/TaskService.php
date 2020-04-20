@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Task;
+use Carbon\Carbon;
 
 class TaskService {
     //カレンダー表示用のタスク達成率の配列
@@ -36,5 +37,36 @@ class TaskService {
         }
 
         return $achievment_rate;
+    }
+
+    //一週間分のタスクの達成率の日にち
+    public function oneWeekTaskAchievementDate()
+    {
+        for ($i = 0; $i < 7; $i++) {
+            $date = date("Y-m-d", strtotime('-'.$i .'day'));
+            $oneWeekTaskDate[] = $date;
+        }
+
+        $oneWeekTaskDate = array_reverse($oneWeekTaskDate);
+        return $oneWeekTaskDate;
+    }
+
+    //一週間分のタスクの達成率
+    public function oneWeekTaskAchievement($user_id,$oneWeekTaskDate)
+    {
+        for ($i = 0; $i < 7; $i++) {
+            $tasks_num = Task::where('user_id',$user_id)->where('date',$oneWeekTaskDate[$i])->count();
+            $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
+            if($tasks_num){
+                $div = $achievement_tasks_num / $tasks_num;
+                $achievment_rate = (round($div,2)) * 100;
+            }else{
+                $achievment_rate = 0;
+            }
+
+            $oneWeekTaskAchievement[] = $achievment_rate;
+        }
+
+        return $oneWeekTaskAchievement;
     }
 }

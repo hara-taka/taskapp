@@ -37,7 +37,13 @@ class ProfileController extends Controller
         //カレンダー表示用のタスク達成率の配列
         $tasks = TaskService::calendarTaskAchievement($count,$date,$user_id);
 
-        return view('profile.show',compact('profile','user_id','dates','dt','tasks'));
+        //一週間分のタスクの達成率の日にち
+        $oneWeekTaskDate = TaskService::oneWeekTaskAchievementDate();
+
+        //一週間分のタスクの達成率
+        $oneWeekTaskAchievement = TaskService::oneWeekTaskAchievement($user_id,$oneWeekTaskDate);
+
+        return view('profile.show',compact('profile','user_id','dates','dt','tasks','oneWeekTaskDate','oneWeekTaskAchievement'));
     }
 
     public function edit(int $user_id)
