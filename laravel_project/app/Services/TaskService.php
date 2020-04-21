@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Task;
+use App\User;
 use Carbon\Carbon;
 
 class TaskService {
@@ -69,4 +70,30 @@ class TaskService {
 
         return $oneWeekTaskAchievement;
     }
+
+    //当日の個人用タスク達成率ランキングデータ
+    public function personalTaskRanking()
+    {
+        $user = User::all();
+        $count = User::all()->count();
+        $date = date('Y-m-d');
+
+        for ($i = 0; $i < $count; $i++) {
+            $tasks_num = Task::where('user_id',$user[$i]->id)->where('date',$date)->count();
+            $achievement_tasks_num = Task::where('user_id',$user[$i]->id)->where('status',2)->count();
+            if($tasks_num){
+                $div = $achievement_tasks_num / $tasks_num;
+                $achievment_rate = (round($div,2)) * 100;
+            }else{
+                $achievment_rate = 0;
+            }
+
+            $personalTask[$user[$i]->name] = $achievment_rate;
+        }
+
+        arsort($personalTask);
+        $personalTask = array_slice($personalTask,0,5);
+        return $personalTask;
+    }
+
 }
