@@ -67,4 +67,13 @@ class TasksController extends Controller
         'user_id' => $user_id,'date' => $date
         ]);
     }
+
+    public function showRanking()
+    {
+        //当日の個人用タスク達成率ランキングデータ
+        $personalTask = TaskService::personalTaskRanking();
+
+        return view('ranking.show',compact('personalTask'));
+    }
+
 }
