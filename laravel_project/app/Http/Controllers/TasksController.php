@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Group;
+use App\GroupMember;
 use TaskService;
 
 class TasksController extends Controller
@@ -70,10 +72,19 @@ class TasksController extends Controller
 
     public function showRanking()
     {
-        //当日の個人用タスク達成率ランキングデータ
-        $personalTask = TaskService::personalTaskRanking();
+        //ランキング（個人当日）
+        $personalTodayData = TaskService::personalTaskRanking();
 
-        return view('ranking.show',compact('personalTask'));
+        //ランキング（個人一週間）
+        $personalOneWeekData = TaskService::personalOneWeekTaskRanking();
+
+        //ランキング（グループ当日）
+        $groupTodayData = TaskService::groupTodayTaskRanking();
+
+        //ランキング（グループ一週間）
+        $groupOneWeekData = TaskService::groupOneWeekTaskRanking();
+
+        return view('ranking.show',compact('personalTodayData','personalOneWeekData','groupTodayData','groupOneWeekData'));
     }
 
 }
