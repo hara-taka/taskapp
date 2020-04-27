@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Group;
 use App\GroupMember;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 

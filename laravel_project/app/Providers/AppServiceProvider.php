@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\TaskService;
 use App\Services\CalendarService;
+use App\Services\UtilService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind('App\Services\TaskService');
         $this->app->bind('App\Services\CalendarService');
+        $this->app->bind('App\Services\UtilService');
     }
 
     /**
