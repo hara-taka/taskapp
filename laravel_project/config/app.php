@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TaskServiceProvider::class,
         App\Providers\CalendarServiceProvider::class,
+        App\Providers\UtilServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'TaskService' => App\Facades\TaskService::class,
         'CalendarService' => App\Facades\CalendarService::class,
+        'UtilService' => App\Facades\UtilService::class,
 
     ],
 

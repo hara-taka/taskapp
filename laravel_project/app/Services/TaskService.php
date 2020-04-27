@@ -7,6 +7,7 @@ use App\User;
 use App\GroupMember;
 use App\Group;
 use Carbon\Carbon;
+use UtilService;
 
 class TaskService {
     //カレンダー表示用のタスク達成率の配列
@@ -103,12 +104,10 @@ class TaskService {
     public function personalOneWeekTaskRanking()
     {
         $user = User::all();
-        $count = User::all()->count();
+        $count = $user->count();
 
         //一週間分の日付の配列
-        for($i = 0; $i > -7; $i--){
-            $date[] = date("Y-m-d",strtotime("$i day"));
-        }
+        $date = UtilService::oneWeekDate();
 
         //ユーザーごと一週間の繰り返し処理
         for($j = 0; $j < $count; $j++) {
@@ -195,9 +194,7 @@ class TaskService {
         $groupCount = Group::all()->count();
 
         //一週間分の日付の配列
-        for($i = 0; $i > -7; $i--){
-            $date[] = date("Y-m-d",strtotime("$i day"));
-        }
+        $date = UtilService::oneWeekDate();
 
         //各グループの人数の配列
         for($i = 0; $i < $groupCount; $i++){
