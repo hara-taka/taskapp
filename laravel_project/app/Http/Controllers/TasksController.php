@@ -71,18 +71,23 @@ class TasksController extends Controller
     public function showRanking()
     {
         //ランキング（個人当日）
-        $personalTodayData = TaskService::personalTaskRanking();
+        list($personalTodayName, $personalTodayTask, $personalTodayRank) = TaskService::personalTaskRanking();
 
         //ランキング（個人一週間）
-        $personalOneWeekData = TaskService::personalOneWeekTaskRanking();
+        list($personalOneWeekName, $personalOneWeekTask, $personalOneWeekRank) = TaskService::personalOneWeekTaskRanking();
 
         //ランキング（グループ当日）
-        $groupTodayData = TaskService::groupTodayTaskRanking();
+        list($groupTodayName, $groupTodayTask, $groupTodayRank) = TaskService::groupTodayTaskRanking();
 
         //ランキング（グループ一週間）
-        $groupOneWeekData = TaskService::groupOneWeekTaskRanking();
+        list($groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank) = TaskService::groupOneWeekTaskRanking();
 
-        return view('ranking.show',compact('personalTodayData','personalOneWeekData','groupTodayData','groupOneWeekData'));
+        return view('ranking.show',compact(
+        'personalTodayName','personalTodayTask','personalTodayRank',
+        'personalOneWeekName','personalOneWeekTask','personalOneWeekRank',
+        'groupTodayName','groupTodayTask','groupTodayRank',
+        'groupOneWeekName','groupOneWeekTask','groupOneWeekRank'
+        ));
     }
 
 }
