@@ -97,7 +97,16 @@ class TaskService {
         arsort($personalTodayData);
         $personalTodayData = array_slice($personalTodayData,0,5);
 
-        return $personalTodayData;
+        //ランキングの順位配列
+        $personalTodayRank = $this->rank($personalTodayData);
+
+        //ランキングのユーザー名の配列
+        $personalTodayName = array_keys($personalTodayData);
+
+        //ランキングのタスクの達成率の配列
+        $personalTodayTask = array_values($personalTodayData);
+
+        return array($personalTodayName, $personalTodayTask, $personalTodayRank);
     }
 
     //ランキング（個人一週間）
@@ -133,7 +142,16 @@ class TaskService {
         arsort($personalOneWeekData);
         $personalOneWeekData = array_slice($personalOneWeekData,0,5);
 
-        return $personalOneWeekData;
+        //ランキングの順位配列
+        $personalOneWeekRank = $this->rank($personalOneWeekData);
+
+        //ランキングのユーザー名の配列
+        $personalOneWeekName = array_keys($personalOneWeekData);
+
+        //ランキングのタスク達成率の配列
+        $personalOneWeekTask = array_values($personalOneWeekData);
+
+        return array($personalOneWeekName, $personalOneWeekTask, $personalOneWeekRank);
     }
 
     //ランキング（グループ当日）
@@ -184,7 +202,16 @@ class TaskService {
         arsort($groupTodayData);
         $groupTodayData = array_slice($groupTodayData,0,5);
 
-        return $groupTodayData;
+        //ランキングの順位配列
+        $groupTodayRank = $this->rank($groupTodayData);
+
+        //ランキングのグループ名の配列
+        $groupTodayName = array_keys($groupTodayData);
+
+        //ランキングのタスク達成率の配列
+        $groupTodayTask = array_values($groupTodayData);
+
+        return array($groupTodayName, $groupTodayTask, $groupTodayRank);
     }
 
     //ランキング（グループ一週間）
@@ -243,7 +270,37 @@ class TaskService {
         arsort($groupOneWeekData);
         $groupOneWeekData = array_slice($groupOneWeekData,0,5);
 
-        return $groupOneWeekData;
+        //ランキングの順位配列
+        $groupOneWeekRank = $this->rank($groupOneWeekData);
+
+        //ランキングのグループ名の配列
+        $groupOneWeekName = array_keys($groupOneWeekData);
+
+        //ランキングのタスク達成率の配列
+        $groupOneWeekTask = array_values($groupOneWeekData);
+
+        return array($groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank);
+    }
+
+    //ランキングの順位取得
+    public function rank($rankingArray)
+    {
+        $rankingArrayValues = array_values($rankingArray);
+        $count = count($rankingArrayValues);
+
+        $rank = 1;
+        $rankArray[] = $rank;
+
+        for($i = 0; $i < $count-1; $i++){
+            if($rankingArrayValues[$i] == $rankingArrayValues[$i+1]){
+                $rankArray[] = $rank;
+            } else {
+                $rank = $rank+1;
+                $rankArray[] = $rank;
+            }
+        }
+
+        return $rankArray;
     }
 
 }
