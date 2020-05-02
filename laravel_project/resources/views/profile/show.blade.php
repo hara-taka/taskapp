@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-</head>
-<body>
+@extends('../layout')
+
+@section('title','プロフィール')
+
+@section('content')
   <div class="profile-wrapper">
     <div class="container">
       <div class="heading">
@@ -107,5 +103,4 @@
       </script>
     </div>
   </div>
-</body>
-</html>
+@endsection

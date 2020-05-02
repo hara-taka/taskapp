@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
+@extends('../layout')
 
-<div class="personlTask-wrapper">
-  <div class="container">
-    <div class="heading">
-      <h1>タスク <span>{{$date}} 達成率{{$achievment_rate}}％</span></h1>
-    </div>
-    <div class="taskCreate">
-      <form action="{{ route('tasks.store', ['user_id' => $user_id,'date' => $date]) }}" method="post">
-        {{csrf_field()}}
-        <input type="text" name="name" class="createTaskName" placeholder="新規タスクを追加する">
-        <select name="status" class="createTaskStatus">
-          <option value="1">未完了</option>
-          <option value="2">完了</option>
-        </select>
-        <input type="submit" value="追加" class="btn">
-      </form>
-    </div>
-    <div class="taskIndex">
+@section('title','タスク')
+
+@section('content')
+  <div class="personlTask-wrapper">
+    <div class="container">
+      <div class="heading">
+        <h1>タスク <span>{{$date}} 達成率{{$achievment_rate}}％</span></h1>
+      </div>
+      <div class="taskCreate">
+        <form action="{{ route('tasks.store', ['user_id' => $user_id,'date' => $date]) }}" method="post">
+          {{csrf_field()}}
+          <input type="text" name="name" class="createTaskName" placeholder="新規タスクを追加する">
+          <select name="status" class="createTaskStatus">
+            <option value="1">未完了</option>
+            <option value="2">完了</option>
+          </select>
+          <input type="submit" value="追加" class="btn">
+        </form>
+      </div>
+      <div class="taskIndex">
         <table>
           @foreach($tasks as $task)
               <tr class="task">
@@ -41,6 +38,7 @@
               </tr>
           @endforeach
         </table>
+      </div>
     </div>
   </div>
-</div>
+@endsection

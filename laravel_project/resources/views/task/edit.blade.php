@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
+@extends('../layout')
 
-<div class="editTask_wrapper">
-  <div class="container">
-    <div class="heading">
-      <h1>タスク編集 <span>{{$date}}</span></h1>
-    </div>
-    <div class="taskEdit">
-      <form action="{{ route('tasks.update', ['user_id' => $user_id,'task_id' => $task->id,'date' => $date]) }}" method="post">
-        {{csrf_field()}}
-          <input type="text" name="name" value="{{ $task -> name }}" class="editTaskName">
-          <select name="status" class="editTaskStatus">
-            <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>未完了</option>
-            <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>完了</option>
-          </select>
-          <input type="submit" value="更新" class="btn">
-      </form>
-    </<div>
-</div>
+@section('title','タスク')
+
+@section('content')
+  <div class="editTask_wrapper">
+    <div class="container">
+      <div class="heading">
+        <h1>タスク編集 <span>{{$date}}</span></h1>
+      </div>
+      <div class="taskEdit">
+        <form action="{{ route('tasks.update', ['user_id' => $user_id,'task_id' => $task->id,'date' => $date]) }}" method="post">
+          {{csrf_field()}}
+            <input type="text" name="name" value="{{ $task -> name }}" class="editTaskName">
+            <select name="status" class="editTaskStatus">
+              <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>未完了</option>
+              <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>完了</option>
+            </select>
+            <input type="submit" value="更新" class="btn">
+        </form>
+      </<div>
+  </div>
+@endsection

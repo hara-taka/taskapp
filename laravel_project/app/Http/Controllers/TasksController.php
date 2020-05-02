@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use Auth;
 use TaskService;
 
 class TasksController extends Controller
@@ -82,11 +83,13 @@ class TasksController extends Controller
         //ランキング（グループ一週間）
         list($groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank) = TaskService::groupOneWeekTaskRanking();
 
+        $user_id = Auth::id();
+
         return view('ranking.show',compact(
         'personalTodayName','personalTodayTask','personalTodayRank',
         'personalOneWeekName','personalOneWeekTask','personalOneWeekRank',
         'groupTodayName','groupTodayTask','groupTodayRank',
-        'groupOneWeekName','groupOneWeekTask','groupOneWeekRank'
+        'groupOneWeekName','groupOneWeekTask','groupOneWeekRank','user_id'
         ));
     }
 
