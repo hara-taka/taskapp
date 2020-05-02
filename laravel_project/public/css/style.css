@@ -346,3 +346,23 @@ input,select {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+header {
+  background:black;
+  margin-bottom: 5px;
+}
+
+header ul{
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  height: 80px;
+  align-items: center;
+  font-size: 25px;
+
+}
+
+header ul li{
+  margin-right: 15px;
+  color: white;
+}

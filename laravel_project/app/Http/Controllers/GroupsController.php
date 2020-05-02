@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Group;
 use App\GroupMember;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 use Illuminate\Http\Request;
 
@@ -12,13 +12,16 @@ class GroupsController extends Controller
     public function index()
     {
         $groups = Group::all();
+        $user_id = Auth::id();
 
-        return view('group.index',compact('groups'));
+        return view('group.index',compact('groups','user_id'));
     }
 
     public function create()
     {
-        return view('group.create');
+        $user_id = Auth::id();
+
+        return view('group.create',compact('user_id'));
     }
 
     public function store(Request $request)
@@ -40,7 +43,9 @@ class GroupsController extends Controller
 
         $members = GroupMember::where('group_id',$group_id)->get();
 
-        return view('group.details',compact('group','members','group_member_num'));
+        $user_id = Auth::id();
+
+        return view('group.details',compact('group','members','group_member_num','user_id'));
     }
 
     public function participate(int $group_id)
