@@ -15,7 +15,7 @@ class TaskService {
     {
         for ($i = 0; $i < $count; $i++, $date->addDay()) {
             $tasks_num = Task::where('user_id',$user_id)->where('date',$date)->count();
-            $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
+            $achievement_tasks_num = Task::where('user_id',$user_id)->where('date',$date)->where('status',2)->count();
             if($tasks_num){
                 $div = $achievement_tasks_num / $tasks_num;
                 $achievment_rate = (round($div,2)) * 100;
@@ -32,7 +32,7 @@ class TaskService {
     public function taskAchievementCalculation($user_id,$today)
     {
         $tasks_num = Task::where('user_id',$user_id)->where('date',$today)->count();
-        $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
+        $achievement_tasks_num = Task::where('user_id',$user_id)->where('date',$today)->where('status',2)->count();
         if($tasks_num){
             $div = $achievement_tasks_num / $tasks_num;
             $achievment_rate = (round($div,2)) * 100;
@@ -60,7 +60,7 @@ class TaskService {
     {
         for ($i = 0; $i < 7; $i++) {
             $tasks_num = Task::where('user_id',$user_id)->where('date',$oneWeekTaskDate[$i])->count();
-            $achievement_tasks_num = Task::where('user_id',$user_id)->where('status',2)->count();
+            $achievement_tasks_num = Task::where('user_id',$user_id)->where('date',$oneWeekTaskDate[$i])->where('status',2)->count();
             if($tasks_num){
                 $div = $achievement_tasks_num / $tasks_num;
                 $achievment_rate = (round($div,2)) * 100;
@@ -83,7 +83,7 @@ class TaskService {
 
         for ($i = 0; $i < $count; $i++) {
             $tasks_num = Task::where('user_id',$user[$i]->id)->where('date',$date)->count();
-            $achievement_tasks_num = Task::where('user_id',$user[$i]->id)->where('status',2)->count();
+            $achievement_tasks_num = Task::where('user_id',$user[$i]->id)->where('date',$date)->where('status',2)->count();
             if($tasks_num){
                 $div = $achievement_tasks_num / $tasks_num;
                 $achievment_rate = (round($div,2)) * 100;
@@ -122,7 +122,7 @@ class TaskService {
         for($j = 0; $j < $count; $j++) {
             for ($i = 0; $i < 7; $i++) {
                 $tasks_num = Task::where('user_id',$user[$j]->id)->where('date',$date[$i])->count();
-                $achievement_tasks_num = Task::where('user_id',$user[$j]->id)->where('status',2)->count();
+                $achievement_tasks_num = Task::where('user_id',$user[$j]->id)->where('date',$date[$i])->where('status',2)->count();
                 if($tasks_num){
                     $div = $achievement_tasks_num / $tasks_num;
                     $achievment_rate = (round($div,2)) * 100;
@@ -175,7 +175,7 @@ class TaskService {
             $count = $groupMemberCount[$i];
             for ($j = 0; $j < $count; $j++) {
                 $tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date)->count();
-                $achievement_tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('status',2)->count();
+                $achievement_tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date)->where('status',2)->count();
                 if($tasks_num){
                     $div = $achievement_tasks_num / $tasks_num;
                     $achievment_rate = (round($div,2)) * 100;
@@ -238,7 +238,7 @@ class TaskService {
             for ($j = 0; $j < $count; $j++) {
                 for ($k = 0; $k < 7; $k++) {
                     $tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date[$k])->count();
-                    $achievement_tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('status',2)->count();
+                    $achievement_tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date[$k])->where('status',2)->count();
                     if($tasks_num){
                         $div = $achievement_tasks_num / $tasks_num;
                     $achievment_rate = (round($div,2)) * 100;
