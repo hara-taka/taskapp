@@ -22,9 +22,13 @@ class TasksTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->get(route('tasks.index'));
+        $user = factory(User::class)->create();
+
+        $response = $this->get(route('tasks.index', [$user_id => $user->id]));
 
         $response->assertStatus(200);
+
+        $this->assertSee('追加');
     }
 
     public function testStore()
