@@ -5,9 +5,12 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Task;
+use App\User;
 
 class TasksTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -33,30 +36,51 @@ class TasksTest extends TestCase
 
     public function testStore()
     {
-        $response = $this->post(route('tasks.store'));
+        $task = factory(Task::class)->create();
+
+        $response = $this->post(route('tasks.store', [$user_id => $task->user_id]));
 
         $response->assertStatus(200);
+
+        $this->assertEquals(1, User::count());
     }
 
     public function testEdit()
     {
-        $response = $this->get(route('tasks.edit'));
+        $task = factory(Task::class)->create();
+
+        $response = $this->get(route('tasks.edit', [$user_id => $task->user_id, $task_id => $task->id]));
 
         $response->assertStatus(200);
+
+        $this->assertSee($task->name);
     }
 
     public function testUpdate()
     {
-        $response = $this->post(route('tasks.update'));
+        $task = factory(Task::class)->create();
+
+        $response = $this->post(route('tasks.update', [$user_id => $task->user_id, $task_id => $task->id]));
 
         $response->assertStatus(200);
+
+        $task->name = 'test_user';
+        $task->save();
+
+        $this->assertDatabaseHas('tasks', [
+            'name' => 'test_user'
+        ]);
     }
 
     public function testDestroy()
     {
-        $response = $this->delete(route('tasks.destroy'));
+        $task = factory(Task::class)->create();
+
+        $response = $this->delete(route('tasks.destroy', [$user_id => $task->user_id, $task_id => $task->id]));
 
         $response->assertStatus(200);
+
+        $this->assertEquals(0, User::count());
     }
 
     public function testShowRanking()
@@ -64,5 +88,7 @@ class TasksTest extends TestCase
         $response = $this->get(route('ranking.show'));
 
         $response->assertStatus(200);
+
+        $this->assertSee('個人（当日）');
     }
 }
