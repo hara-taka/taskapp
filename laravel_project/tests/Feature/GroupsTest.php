@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Group;
 use App\GroupMember;
+use App\User;
 
 class GroupsTest extends TestCase
 {
@@ -38,13 +39,15 @@ class GroupsTest extends TestCase
 
         $response->assertStatus(200);
 
-        $group = factory(Group::class)->create([
+        $group = factory(Group::class)->make([
             'category' => 'study'
         ]);
 
+        $group->save();
+
         $searchResponse = $this->get('groups/search?category=study&sort=&keyword=');
 
-        $searchResponse->assertSee($group->name);
+        $this->assertSee($group->name);
     }
 
     public function testCreate()
@@ -58,13 +61,19 @@ class GroupsTest extends TestCase
 
     public function testStore()
     {
-        $response = $this->post(route('groups.store'));
+        $response = $this->post('/groups/store',[
+            'name' => 'test_group',
+            'category' => 'study',
+            'comment' => 'test'
+        ]);
 
         $response->assertStatus(200);
 
-        $group = factory(Group::class)->create();
-
-        $this->assertEquals(1, Group::count());
+        $this->assertDatabaseHas('groups', [
+            'name' => 'test_group',
+            'category' => 'study',
+            'comment' => 'test'
+        ]);
     }
 
     public function testDetails()
@@ -80,12 +89,28 @@ class GroupsTest extends TestCase
 
     public function testParticipate()
     {
-        $group_member = factory(GroupMember::class)->create();
+        $group = factory(Group::class)->make([
+            'id' => '1'
+        ]);
 
-        $response = $this->post(route('groups.participate', [$group_id => $group_member->group_id]));
+        $group->save();
+
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
+
+        $user->save();
+
+        $response = $this->post('/groups/id',[
+            'group_id' => '1',
+            'user_id' => '1'
+        ]);
 
         $response->assertStatus(200);
 
-        $this->assertEquals(1, GroupMember::count());
+        $this->assertDatabaseHas('group_members', [
+            'group_id' => '1',
+            'user_id' => '1'
+        ]);
     }
 }

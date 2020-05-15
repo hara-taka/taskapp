@@ -46,14 +46,15 @@ class ProfileTest extends TestCase
 
     public function testUpdate()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
 
-        $response = $this->post(route('profile.update', [$user_id => $user->id]));
+        $response = $this->post('/profile/1/update',[
+            'name' => 'test_user'
+        ]);
 
         $response->assertStatus(200);
-
-        $user->name = 'test_user';
-        $user->save();
 
         $this->assertDatabaseHas('users', [
             'name' => 'test_user'
@@ -73,17 +74,20 @@ class ProfileTest extends TestCase
 
     public function testUpdatePassword()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->post(route('groups.updatePassword', [$user_id => $user->id]));
-
-        $response->assertStatus(200);
-
-        $user->password = 'test_password';
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
         $user->save();
 
+        $response = $this->post('/profile/1/updatePassword',[
+            'current_password' => 'test_oldPassword',
+            'new_password' => 'test_newPassword'
+        ]);
+
+        $test_user = User::find(1);
+        $user_pass = $test_user->password;
         $this->assertDatabaseHas('users', [
-            'password' => 'test_password'
+            'current_password' => $user_pass
         ]);
     }
 }

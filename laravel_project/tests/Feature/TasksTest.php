@@ -36,20 +36,30 @@ class TasksTest extends TestCase
 
     public function testStore()
     {
-        $task = factory(Task::class)->create();
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
 
-        $response = $this->post(route('tasks.store', [$user_id => $task->user_id]));
+        $user->save();
+
+        $response = $this->post('/tasks/1/2020-01-01/store',[
+            'name' => 'test_task',
+            'status' => '2'
+        ]);
 
         $response->assertStatus(200);
 
-        $this->assertEquals(1, User::count());
+        $this->assertDatabaseHas('tasks', [
+            'name' => 'test_task',
+            'status' => '2'
+        ]);
     }
 
     public function testEdit()
     {
         $task = factory(Task::class)->create();
 
-        $response = $this->get(route('tasks.edit', [$user_id => $task->user_id, $task_id => $task->id]));
+        $response = $this->get(route('tasks.edit', [$user_id => $task->user_id, $task_id => $task->id, $date => $task->date]));
 
         $response->assertStatus(200);
 
@@ -58,17 +68,23 @@ class TasksTest extends TestCase
 
     public function testUpdate()
     {
-        $task = factory(Task::class)->create();
+        $task = factory(Task::class)->make([
+            'id' => '1',
+            'user_id' => '1'
+        ]);
 
-        $response = $this->post(route('tasks.update', [$user_id => $task->user_id, $task_id => $task->id]));
+        $task->save();
+
+        $response = $this->post('/tasks/1/1/2020-01-01/update',[
+            'name' => 'test_task',
+            'status' => '2'
+        ]);
 
         $response->assertStatus(200);
 
-        $task->name = 'test_user';
-        $task->save();
-
         $this->assertDatabaseHas('tasks', [
-            'name' => 'test_user'
+            'name' => 'test_task',
+            'status' => '2'
         ]);
     }
 
@@ -76,11 +92,11 @@ class TasksTest extends TestCase
     {
         $task = factory(Task::class)->create();
 
-        $response = $this->delete(route('tasks.destroy', [$user_id => $task->user_id, $task_id => $task->id]));
+        $response = $this->delete(route('tasks.destroy', [$user_id => $task->user_id, $task_id => $task->id, $date => $task->date]));
 
         $response->assertStatus(200);
 
-        $this->assertEquals(0, User::count());
+        $this->assertEquals(0, Task::count());
     }
 
     public function testShowRanking()
