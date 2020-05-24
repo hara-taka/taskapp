@@ -108,7 +108,7 @@ class GroupsTest extends TestCase
 
         $response = $this->actingAs($user)->post('/groups/1');
 
-        //$response->assertStatus(200);
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('group_members', [
             'group_id' => '1',

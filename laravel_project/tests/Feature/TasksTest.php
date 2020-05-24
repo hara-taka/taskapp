@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Task;
 use App\User;
+use App\Group;
 
 class TasksTest extends TestCase
 {
@@ -101,11 +102,19 @@ class TasksTest extends TestCase
 
     public function testShowRanking()
     {
-        $task = factory(Task::class)->create();
+        $user = factory(User::class)->create();
 
-        $response = $this->get(route('ranking.show'));
+        $task = factory(Task::class)->make([
+            'user_id' => '1'
+        ]);
 
-        //$response->assertStatus(200);
+        $task->save();
+
+        $group = factory(Group::class)->create();
+
+        $response = $this->actingAs($user)->get(route('ranking.show'));
+
+        $response->assertStatus(200);
 
         $response->assertSee('個人（当日）');
     }

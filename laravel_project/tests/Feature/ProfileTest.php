@@ -56,7 +56,8 @@ class ProfileTest extends TestCase
             'name' => 'test_user',
             'gender' => '1',
             'age' => '30',
-            'comment' => 'test'
+            'comment' => 'test',
+            'email' => 'test@test.test'
         ]);
 
         $response->assertStatus(302);
@@ -65,7 +66,8 @@ class ProfileTest extends TestCase
             'name' => 'test_user',
             'gender' => '1',
             'age' => '30',
-            'comment' => 'test'
+            'comment' => 'test',
+            'email' => 'test@test.test'
         ]);
     }
 

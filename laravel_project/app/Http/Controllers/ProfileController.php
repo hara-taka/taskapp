@@ -60,6 +60,7 @@ class ProfileController extends Controller
         $profile->gender = $request->gender;
         $profile->age = $request->age;
         $profile->comment = $request->comment;
+        $profile->email = $request->email;
         if($request->hasFile('image')){
             if($request->file('image')->isValid()) {
                 $path = $request->file('image')->store('public');
