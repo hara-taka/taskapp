@@ -51,6 +51,7 @@ class GroupsController extends Controller
     public function participate(int $group_id)
     {
         $user_id = Auth::id();
+        $group = Group::find($group_id);
         $group_member_num = $group->group_members->count();
 
         if($group_member_num < 5){
@@ -90,6 +91,8 @@ class GroupsController extends Controller
 
         $groups = $query->get();
 
-        return view('group.index',compact('groups'));
+        $user_id = Auth::id();
+
+        return view('group.index',compact('groups','user_id'));
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Task;
 use App\User;
+use App\Group;
 
 class TasksTest extends TestCase
 {
@@ -27,11 +28,11 @@ class TasksTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('tasks.index', [$user_id => $user->id]));
+        $response = $this->get(route('tasks.index', ['user_id' => $user->id, 'date' => '2020-01-01']));
 
         $response->assertStatus(200);
 
-        $this->assertSee('追加');
+        $response->assertSee('追加');
     }
 
     public function testStore()
@@ -47,7 +48,7 @@ class TasksTest extends TestCase
             'status' => '2'
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('tasks', [
             'name' => 'test_task',
@@ -59,11 +60,11 @@ class TasksTest extends TestCase
     {
         $task = factory(Task::class)->create();
 
-        $response = $this->get(route('tasks.edit', [$user_id => $task->user_id, $task_id => $task->id, $date => $task->date]));
+        $response = $this->get(route('tasks.edit', ['user_id' => $task->user_id, 'task_id' => $task->id, 'date' => $task->date]));
 
         $response->assertStatus(200);
 
-        $this->assertSee($task->name);
+        $response->assertSee($task->name);
     }
 
     public function testUpdate()
@@ -80,7 +81,7 @@ class TasksTest extends TestCase
             'status' => '2'
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('tasks', [
             'name' => 'test_task',
@@ -92,19 +93,29 @@ class TasksTest extends TestCase
     {
         $task = factory(Task::class)->create();
 
-        $response = $this->delete(route('tasks.destroy', [$user_id => $task->user_id, $task_id => $task->id, $date => $task->date]));
+        $response = $this->delete(route('tasks.destroy', ['user_id' => $task->user_id, 'task_id' => $task->id, 'date' => $task->date]));
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         $this->assertEquals(0, Task::count());
     }
 
     public function testShowRanking()
     {
-        $response = $this->get(route('ranking.show'));
+        $user = factory(User::class)->create();
+
+        $task = factory(Task::class)->make([
+            'user_id' => '1'
+        ]);
+
+        $task->save();
+
+        $group = factory(Group::class)->create();
+
+        $response = $this->actingAs($user)->get(route('ranking.show'));
 
         $response->assertStatus(200);
 
-        $this->assertSee('個人（当日）');
+        $response->assertSee('個人（当日）');
     }
 }

@@ -26,22 +26,22 @@ class ProfileTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.show', [$user_id => $user->id]));
+        $response = $this->get(route('profile.show', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
-        $this->assertSee($user->name);
+        $response->assertSee($user->name);
     }
 
     public function testEdit()
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.edit', [$user_id => $user->id]));
+        $response = $this->get(route('profile.edit', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
-        $this->assertSee($user->name);
+        $response->assertSee($user->name);
     }
 
     public function testUpdate()
@@ -50,14 +50,24 @@ class ProfileTest extends TestCase
             'id' => '1'
         ]);
 
+        $user->save();
+
         $response = $this->post('/profile/1/update',[
-            'name' => 'test_user'
+            'name' => 'test_user',
+            'gender' => '1',
+            'age' => '30',
+            'comment' => 'test',
+            'email' => 'test@test.test'
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         $this->assertDatabaseHas('users', [
-            'name' => 'test_user'
+            'name' => 'test_user',
+            'gender' => '1',
+            'age' => '30',
+            'comment' => 'test',
+            'email' => 'test@test.test'
         ]);
     }
 
@@ -65,11 +75,11 @@ class ProfileTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.editPassword', [$user_id => $user->id]));
+        $response = $this->get(route('profile.editPassword', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
-        $this->assertSee('現在のパスワード');
+        $response->assertSee('現在のパスワード');
     }
 
     public function testUpdatePassword()
@@ -87,7 +97,7 @@ class ProfileTest extends TestCase
         $test_user = User::find(1);
         $user_pass = $test_user->password;
         $this->assertDatabaseHas('users', [
-            'current_password' => $user_pass
+            'password' => $user_pass
         ]);
     }
 }
