@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/php:7.3-stretch-node-browsers
       - image: circleci/mysql:8.0.19
-      command: mysqld --default-authentication-plugin=mysql_native_password
+        command: mysqld --default-authentication-plugin=mysql_native_password
 
     #環境変数の指定
     environment:
