@@ -35,11 +35,12 @@ jobs:
       #キャッシュの保存
       - save_cache:
           paths:
-            - ./vendor
+            - laravel_project/vendor
           key: v1-dependencies-{{ checksum "laravel_project/composer.json" }}
 
       #マイグレーション
       - run: php artisan migrate
 
       #テスト実行
+      - run: cd laravel_project/
       - run: php ./vendor/bin/phpunit
