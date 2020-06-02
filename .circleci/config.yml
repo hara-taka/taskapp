@@ -30,7 +30,10 @@ jobs:
           - v1-dependencies-
 
       #composerインストール
-      - run: composer install -n --prefer-dist
+      - run:
+          name: composer install
+          working_directory: ~/taskapp/laravel_project
+          command: composer install -n --prefer-dist
 
       #キャッシュの保存
       - save_cache:
@@ -39,8 +42,13 @@ jobs:
           key: v1-dependencies-{{ checksum "laravel_project/composer.json" }}
 
       #マイグレーション
-      - run: php artisan migrate
+      - run:
+          name: db migrate
+          working_directory: ~/taskapp/laravel_project
+          command: php artisan migrate
 
       #テスト実行
-      - run: cd laravel_project/
-      - run: php ./vendor/bin/phpunit
+      - run:
+          name: run test
+          working_directory: ~/taskapp/laravel_project
+          command: ./vendor/bin/phpunit
