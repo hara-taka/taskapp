@@ -1,0 +1,54 @@
+version: 2
+jobs:
+  build:
+    #Dockerイメージの指定
+    docker:
+      - image: circleci/php:7.3-stretch-node-browsers
+      - image: circleci/mysql:8.0.19
+        command: mysqld --default-authentication-plugin=mysql_native_password
+
+    #環境変数の指定
+    environment:
+      - APP_DEBUG: true
+      - APP_ENV: testing
+      - APP_KEY: base64:8J3KHlQ75wrq1HYTchgZDLDsfyeinN4sKM21yWNqKgg=
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
+
+    working_directory: ~/taskapp
+
+    steps:
+      - checkout
+
+      #pdo_mysqlのインストール
+      - run: sudo docker-php-ext-install pdo_mysql
+
+      #キャッシュの復元
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "laravel_project/composer.json" }}
+          - v1-dependencies-
+
+      #composerインストール
+      - run:
+          name: composer install
+          working_directory: ~/taskapp/laravel_project
+          command: composer install -n --prefer-dist
+
+      #キャッシュの保存
+      - save_cache:
+          paths:
+            - laravel_project/vendor
+          key: v1-dependencies-{{ checksum "laravel_project/composer.json" }}
+
+      #マイグレーション
+      - run:
+          name: db migrate
+          working_directory: ~/taskapp/laravel_project
+          command: php artisan migrate
+
+      #テスト実行
+      - run:
+          name: run test
+          working_directory: ~/taskapp/laravel_project
+          command: ./vendor/bin/phpunit
