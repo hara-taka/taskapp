@@ -55,7 +55,7 @@ jobs:
 
   deploy:
     machine:
-      image: circleci/classic:edge
+      image: buildpack-deps:trusty
 
     working_directory: ~/taskapp/laravel_project
 
