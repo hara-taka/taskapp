@@ -36,7 +36,7 @@
       <div class="groupIndex">
         @foreach($groups as $group)
           <div class="group">
-            <h1>{{$group->name}}</h1>
+            <h1><a href="{{ route('groups.details', ['group_id' => $group->id]) }}">{{$group->name}}</a></h1>
           </div>
         @endforeach
       </div>
