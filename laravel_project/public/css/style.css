@@ -151,7 +151,11 @@ input,select {
   flex-wrap: wrap;
   margin-top: 10px;
   text-align: center;
+}
 
+.groupIndex a {
+  text-decoration: none;
+  display: block;
 }
 
 .group {
