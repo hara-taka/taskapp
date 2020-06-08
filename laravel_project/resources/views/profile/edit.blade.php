@@ -12,8 +12,14 @@
         <form action="{{ route('profile.update', ['user_id' => $user_id]) }}" method="post" enctype="multipart/form-data">
           {{csrf_field()}}
           <h1>プロフィール画像</h1>
+          @error('image')
+            <div class="error">{{ $message }}</div>
+          @enderror
           <input type="file" name="image">
           <h1>ユーザー名</h1>
+          @error('name')
+            <div class="error">{{ $message }}</div>
+          @enderror
           <input type="text" name="name" value="{{ $profile -> name }}">
           <h1>性別</h1>
           <select name="gender">
@@ -26,6 +32,9 @@
           <h1>自己紹介</h1>
           <textarea name="comment" rows="5" cols="40">{{$profile -> comment}}</textarea>
           <h1>メールアドレス</h1>
+          @error('email')
+            <div class="error">{{ $message }}</div>
+          @enderror
           <input type="text" name="email" value="{{ $profile -> email }}"></br>
           <input type="submit" value="更新" class="btn">
         </form>
