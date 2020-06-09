@@ -40,7 +40,7 @@ class ProfileRequest extends FormRequest
             'image.file' => 'もう一度画像ファイルを選択してください',
             'image.image' => '画像ファイルを選択してください',
             'image.mimes' => '拡張子「jpeg」「png」「jpg」形式の画像ファイルを選択してください',
-            'image.mimes' => '2MG以下の画像ファイルを選択してください',
+            'image.max' => '2MB以下の画像ファイルを選択してください',
         ];
     }
 }

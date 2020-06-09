@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest;
 use App\Task;
 use Auth;
 use TaskService;
@@ -25,7 +26,7 @@ class TasksController extends Controller
         return view('task.index',compact('tasks','user_id','achievment_rate','date'));
     }
 
-    public function store(int $user_id,Request $request,$date)
+    public function store(int $user_id,TaskRequest $request,$date)
     {
             $task = new Task();
             $task->name = $request->name;
@@ -47,7 +48,7 @@ class TasksController extends Controller
         return view('task.edit',compact('task','user_id','date'));
     }
 
-    public function update(int $user_id, int $task_id, Request $request,$date)
+    public function update(int $user_id, int $task_id, TaskRequest $request,$date)
     {
         $task = Task::find($task_id);
         $task->name = $request->name;

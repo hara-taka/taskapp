@@ -25,6 +25,11 @@ h1, h2, h3, h4, h5, h6, p, div {
   margin-right: 10px;
 }
 
+.personlTask-wrapper .error {
+  color: red;
+  margin-left: 30px;
+}
+
 .taskCreate {
   margin-top: 20px;
   height: 45px;
@@ -84,6 +89,11 @@ input,select {
 
 .taskIndex a,input {
   font-size: 20px
+}
+
+.editTask_wrapper .error {
+  color: red;
+  margin-left: 30px;
 }
 
 .taskEdit {
@@ -163,6 +173,11 @@ input,select {
   width: 200px;
   margin-left: 25px;
   margin-bottom: 25px;
+}
+
+.createGroup-wrapper .error {
+  color: red;
+  margin-left: 30px;
 }
 
 .createGroup-wrapper .container {
@@ -309,6 +324,11 @@ input,select {
 .profileEdit .btn {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.editPassword-wrapper .error {
+  color: red;
+  margin-left: 30px;
 }
 
 .editPassword h1 {
