@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\GroupMember;
 use Auth;
-
+use App\Http\Requests\GroupRequest;
 use Illuminate\Http\Request;
 
 class GroupsController extends Controller
@@ -24,7 +24,7 @@ class GroupsController extends Controller
         return view('group.create',compact('user_id'));
     }
 
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
         $group = new Group();
         $group->name = $request->name;

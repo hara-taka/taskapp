@@ -11,6 +11,9 @@
       <div class="taskCreate">
         <form action="{{ route('tasks.store', ['user_id' => $user_id,'date' => $date]) }}" method="post">
           {{csrf_field()}}
+          @error('name')
+            <div class="error">{{ $message }}</div>
+          @enderror
           <input type="text" name="name" class="createTaskName" placeholder="新規タスクを追加する">
           <select name="status" class="createTaskStatus">
             <option value="1">未完了</option>

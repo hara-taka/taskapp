@@ -29,4 +29,15 @@ class PasswordRequest extends FormRequest
             'confirm_password' => 'required|same:new_password'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'current_password.required' => '現在のパスワードを入力してください',
+            'new_password.required' => '新しいパスワードを入力してください',
+            'new_password.min' => '6文字以上で入力してください',
+            'confirm_password.required' => '確認のため新しいパスワードを再度入力してください',
+            'confirm_password.same' => '「新しいパスワード」と「新しいパスワードの確認」が異なっています',
+        ];
+    }
 }
