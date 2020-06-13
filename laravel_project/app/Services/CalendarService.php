@@ -11,10 +11,25 @@ class CalendarService {
         $dateStr = sprintf('%04d-%02d-01', $year, $month);
         $date = new Carbon($dateStr);
 
+        //カレンダーに表示させる先月分の日数
+        $lastMonthDateCount = $date->dayOfWeek;
+
+        //当月の日数
+        $thisMonthDateCount = $date->daysInMonth;
+
+        //カレンダーに表示させる翌月分の日数
+        $day = $thisMonthDateCount;
+        $nextMonthDateStr = sprintf('%04d-%02d-%01d', $year, $month,$day);
+        $nextMonthDate = new Carbon($nextMonthDateStr);
+        $nextMonthDateCount = $nextMonthDate->dayOfWeek;
+        $nextMonthDateCount = 6 - $nextMonthDateCount;
+
+        //カレンダーに表示させる日付の数
+        $count = $lastMonthDateCount + $thisMonthDateCount + $nextMonthDateCount;
+
+        //カレンダーに表示させる最初の日付
         $date->subDay($date->dayOfWeek);
 
-        $count = 31 + $date->dayOfWeek;
-        $count = ceil($count / 7) * 7;
         $dates = [];
 
         for ($i = 0; $i < $count; $i++, $date->addDay()) {
@@ -31,10 +46,24 @@ class CalendarService {
         $dateStr = sprintf('%04d-%02d-01', $year, $month);
         $date = new Carbon($dateStr);
 
-        $date->subDay($date->dayOfWeek);
+        //カレンダーに表示させる先月分の日数
+        $lastMonthDateCount = $date->dayOfWeek;
 
-        $count = 31 + $date->dayOfWeek;
-        $count = ceil($count / 7) * 7;
+        //当月の日数
+        $thisMonthDateCount = $date->daysInMonth;
+
+        //カレンダーに表示させる翌月分の日数
+        $day = $thisMonthDateCount;
+        $nextMonthDateStr = sprintf('%04d-%02d-%01d', $year, $month,$day);
+        $nextMonthDate = new Carbon($nextMonthDateStr);
+        $nextMonthDateCount = $nextMonthDate->dayOfWeek;
+        $nextMonthDateCount = 6 - $nextMonthDateCount;
+
+        //カレンダーに表示させる日付の数
+        $count = $lastMonthDateCount + $thisMonthDateCount + $nextMonthDateCount;
+
+        //カレンダーに表示させる最初の日付
+        $date->subDay($date->dayOfWeek);
 
         return array($date, $count);
     }
