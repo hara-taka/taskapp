@@ -13,12 +13,17 @@ class TaskService {
     //カレンダー表示用のタスク達成率の配列
     public function calendarTaskAchievement($count,$date,$user_id)
     {
+        //本日以降のカレンダー表示タスク達成率を「-」表示するため$dateと比較するための変数
+        $comparision_date = date('Y-m-d', strtotime('+1 day'));
+
         for ($i = 0; $i < $count; $i++, $date->addDay()) {
             $tasks_num = Task::where('user_id',$user_id)->where('date',$date)->count();
             $achievement_tasks_num = Task::where('user_id',$user_id)->where('date',$date)->where('status',2)->count();
             if($tasks_num){
                 $div = $achievement_tasks_num / $tasks_num;
                 $achievment_rate = (round($div,2)) * 100;
+            }elseif($date >= $comparision_date){
+                $achievment_rate = '-';
             }else{
                 $achievment_rate = 0;
             }
