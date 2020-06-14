@@ -291,6 +291,8 @@ input,select {
   font-size: 30px;
   width: 70%;
   margin: 0 auto;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .calendar th {
