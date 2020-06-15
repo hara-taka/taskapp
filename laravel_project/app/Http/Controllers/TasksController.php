@@ -10,6 +10,11 @@ use TaskService;
 
 class TasksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(int $user_id,$date='today')
     {
         if($date == 'today'){
