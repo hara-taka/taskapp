@@ -15,6 +15,11 @@ use CalendarService;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show(int $user_id,$dt='this_month',$change_month='this_month')
     {
         $profile = User::find($user_id);

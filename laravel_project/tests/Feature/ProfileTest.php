@@ -26,7 +26,8 @@ class ProfileTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.show', ['user_id' => $user->id]));
+        $response = $this->actingAs($user)
+                         ->get(route('profile.show', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
@@ -37,7 +38,8 @@ class ProfileTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.edit', ['user_id' => $user->id]));
+        $response = $this->actingAs($user)
+                         ->get(route('profile.edit', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
@@ -52,7 +54,7 @@ class ProfileTest extends TestCase
 
         $user->save();
 
-        $response = $this->post('/profile/1/update',[
+        $response = $this->actingAs($user)->post('/profile/1/update',[
             'name' => 'test_user',
             'gender' => '1',
             'age' => '30',
@@ -75,7 +77,8 @@ class ProfileTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('profile.editPassword', ['user_id' => $user->id]));
+        $response = $this->actingAs($user)
+                         ->get(route('profile.editPassword', ['user_id' => $user->id]));
 
         $response->assertStatus(200);
 
