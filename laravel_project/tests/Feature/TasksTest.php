@@ -28,7 +28,8 @@ class TasksTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $response = $this->get(route('tasks.index', ['user_id' => $user->id, 'date' => '2020-01-01']));
+        $response = $this->actingAs($user)
+                         ->get(route('tasks.index', ['user_id' => $user->id, 'date' => '2020-01-01']));
 
         $response->assertStatus(200);
 
@@ -43,7 +44,7 @@ class TasksTest extends TestCase
 
         $user->save();
 
-        $response = $this->post('/tasks/1/2020-01-01/store',[
+        $response = $this->actingAs($user)->post('/tasks/1/2020-01-01/store',[
             'name' => 'test_task',
             'status' => '2'
         ]);
@@ -58,9 +59,21 @@ class TasksTest extends TestCase
 
     public function testEdit()
     {
-        $task = factory(Task::class)->create();
+        $task = factory(Task::class)->make([
+            'id' => '1',
+            'user_id' => '1'
+        ]);
 
-        $response = $this->get(route('tasks.edit', ['user_id' => $task->user_id, 'task_id' => $task->id, 'date' => $task->date]));
+        $task->save();
+
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
+
+        $user->save();
+
+        $response = $this->actingAs($user)
+                         ->get(route('tasks.edit', ['user_id' => $user->id, 'task_id' => $task->id, 'date' => $task->date]));
 
         $response->assertStatus(200);
 
@@ -69,6 +82,12 @@ class TasksTest extends TestCase
 
     public function testUpdate()
     {
+        /*$task = factory(Task::class)->make([
+            'id' => '1',
+            'user_id' => '1'
+        ]);
+
+        $task->save();*/
         $task = factory(Task::class)->make([
             'id' => '1',
             'user_id' => '1'
@@ -76,7 +95,13 @@ class TasksTest extends TestCase
 
         $task->save();
 
-        $response = $this->post('/tasks/1/1/2020-01-01/update',[
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
+
+        $user->save();
+
+        $response = $this->actingAs($user)->post('/tasks/1/1/2020-01-01/update',[
             'name' => 'test_task',
             'status' => '2'
         ]);
@@ -91,9 +116,22 @@ class TasksTest extends TestCase
 
     public function testDestroy()
     {
-        $task = factory(Task::class)->create();
+        //$task = factory(Task::class)->create();
+        $task = factory(Task::class)->make([
+            'id' => '1',
+            'user_id' => '1'
+        ]);
 
-        $response = $this->delete(route('tasks.destroy', ['user_id' => $task->user_id, 'task_id' => $task->id, 'date' => $task->date]));
+        $task->save();
+
+        $user = factory(User::class)->make([
+            'id' => '1'
+        ]);
+
+        $user->save();
+
+        $response = $this->actingAs($user)
+                         ->delete(route('tasks.destroy', ['user_id' => $user->id, 'task_id' => $task->id, 'date' => $task->date]));
 
         $response->assertStatus(302);
 
