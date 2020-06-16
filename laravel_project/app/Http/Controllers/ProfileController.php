@@ -22,6 +22,12 @@ class ProfileController extends Controller
 
     public function show(int $user_id,$dt='this_month',$change_month='this_month')
     {
+        if(Auth::id() !== $user_id){
+
+            return redirect()->back();
+
+        }
+
         $profile = User::find($user_id);
 
         //カレンダー表示用の年、月の取得
@@ -49,13 +55,21 @@ class ProfileController extends Controller
         $oneWeekTaskAchievement = TaskService::oneWeekTaskAchievement($user_id,$oneWeekTaskDate);
 
         return view('profile.show',compact('profile','user_id','dates','dt','tasks','oneWeekTaskDate','oneWeekTaskAchievement'));
+
     }
 
     public function edit(int $user_id)
     {
+        if(Auth::id() !== $user_id){
+
+            return redirect()->back();
+
+        }
+
         $profile = User::find($user_id);
 
         return view('profile.edit',compact('profile','user_id'));
+
     }
 
     public function update(int $user_id, ProfileRequest $request)
@@ -81,7 +95,14 @@ class ProfileController extends Controller
 
     public function editPassword(int $user_id)
     {
+        if(Auth::id() !== $user_id){
+
+            return redirect()->back();
+
+        }
+
         return view('profile.editPassword',compact('user_id'));
+
     }
 
     public function updatePassword(int $user_id, passwordRequest $request)

@@ -17,11 +17,17 @@ class TasksController extends Controller
 
     public function index(int $user_id,$date='today')
     {
+        if(Auth::id() !== $user_id){
+
+            return redirect()->back();
+
+        }
+
         if($date == 'today'){
             $date = date('Y-m-d');
             $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
         } else {
-             $date = substr($date, 0, 10);
+            $date = substr($date, 0, 10);
              $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
         }
 
@@ -29,6 +35,7 @@ class TasksController extends Controller
         $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
 
         return view('task.index',compact('tasks','user_id','achievment_rate','date'));
+
     }
 
     public function store(int $user_id,TaskRequest $request,$date)
@@ -48,9 +55,16 @@ class TasksController extends Controller
 
     public function edit(int $user_id, int $task_id,$date)
     {
+        if(Auth::id() !== $user_id){
+
+            return redirect()->back();
+
+        }
+
         $task = Task::find($task_id);
 
         return view('task.edit',compact('task','user_id','date'));
+
     }
 
     public function update(int $user_id, int $task_id, TaskRequest $request,$date)
