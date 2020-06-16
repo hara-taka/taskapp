@@ -21,20 +21,20 @@ class TasksController extends Controller
 
             return redirect()->back();
 
-        } else {
-            if($date == 'today'){
-                $date = date('Y-m-d');
-                $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
-            } else {
-                 $date = substr($date, 0, 10);
-                 $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
-            }
-
-            //達成率の計算処理
-            $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
-
-            return view('task.index',compact('tasks','user_id','achievment_rate','date'));
         }
+
+        if($date == 'today'){
+            $date = date('Y-m-d');
+            $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
+        } else {
+            $date = substr($date, 0, 10);
+             $tasks = Task::where('date',$date)->where('user_id',$user_id)->get();
+        }
+
+        //達成率の計算処理
+        $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
+
+        return view('task.index',compact('tasks','user_id','achievment_rate','date'));
 
     }
 
@@ -59,11 +59,11 @@ class TasksController extends Controller
 
             return redirect()->back();
 
-        } else {
-            $task = Task::find($task_id);
-
-            return view('task.edit',compact('task','user_id','date'));
         }
+
+        $task = Task::find($task_id);
+
+        return view('task.edit',compact('task','user_id','date'));
 
     }
 
