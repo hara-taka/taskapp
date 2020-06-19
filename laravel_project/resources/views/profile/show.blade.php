@@ -9,7 +9,11 @@
         <h1>プロフィール</h1>
       </div>
       <div class="profile">
-        <img src="{{ asset('storage/' . $profile->image) }}">
+        @if($profile->image)
+          <img src="{{ asset('storage/' . $profile->image) }}">
+        @else
+          <img src="{{ asset('storage/' . 'defaultImage.png') }}">
+        @endif
         <a href="{{ route('profile.edit', ['user_id' => $user_id]) }}" class="profileEdit">プロフィール編集</a>
         <a href="{{ route('profile.editPassword', ['user_id' => $user_id]) }}" class="passwordEdit">パスワード変更</a>
         <h1>ユーザー名</h1>
