@@ -67,7 +67,10 @@
                     </form>
                 </div>
                 <div class="guestLogin" style="text-align: center;">
-                    <a href="{{ route('guest.login') }}">ゲストとしてログインする</a>
+                    <form method="POST" action="/guest">
+                        @csrf
+                        <input type="submit" value="ゲストユーザーとしてログイン">
+                    </form>
                 </div>
             </div>
         </div>
