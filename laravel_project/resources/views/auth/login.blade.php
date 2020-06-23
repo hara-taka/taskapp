@@ -66,6 +66,12 @@
                         </div>
                     </form>
                 </div>
+                <div class="guestLogin" style="text-align: center;">
+                    <form method="POST" action="/guest">
+                        @csrf
+                        <input type="submit" value="ゲストユーザーとしてログイン">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

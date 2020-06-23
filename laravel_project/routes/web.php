@@ -21,6 +21,8 @@ Route::get('/','Auth\LoginController@showLoginForm');
 
 Auth::routes();
 
+Route::post('/guest', 'GuestLoginController@login')->name('guest.login');
+
 Route::get('/tasks/{user_id}/{date?}','TasksController@index')->name('tasks.index');
 
 Route::post('/tasks/{user_id}/{date}/store','TasksController@store')->name('tasks.store');
