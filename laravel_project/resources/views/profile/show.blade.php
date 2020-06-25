@@ -19,7 +19,7 @@
         <h1>ユーザー名</h1>
         <h2>{{$profile->name}}</h2>
         <h1>性別</h1>
-        <h2>{{$profile->gender}}</h2>
+        <h2>{{\App\Enums\GenderStatus::getGenderStatus($profile->gender)}}</h2>
         <h1>年齢</h1>
         <h2>{{$profile->age}}</h2>
         <h1>自己紹介</h1>
