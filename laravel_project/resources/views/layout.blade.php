@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
   </head>
   <body>

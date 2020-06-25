@@ -69,40 +69,98 @@
       <div class="heading">
         <h1>グラフ</h1>
       </div>
-      <canvas id="Chart"></canvas>
-      <script>
-        const $oneWeekTaskDate = @json($oneWeekTaskDate);
-        const $oneWeekTaskAchievement = @json($oneWeekTaskAchievement);
-        var ctx = document.getElementById("Chart");
-        var barChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: [$oneWeekTaskDate[0],$oneWeekTaskDate[1],$oneWeekTaskDate[2],$oneWeekTaskDate[3],$oneWeekTaskDate[4],$oneWeekTaskDate[5],$oneWeekTaskDate[6]],
-            datasets: [
-              {
-                label: 'タスク達成率',
-                data: [$oneWeekTaskAchievement[0],$oneWeekTaskAchievement[1],$oneWeekTaskAchievement[2],$oneWeekTaskAchievement[3],$oneWeekTaskAchievement[4],$oneWeekTaskAchievement[5],$oneWeekTaskAchievement[6]],
-                borderColor: "rgba(255,255,255,1)",
-                backgroundColor: "#4444FF"
+      <div class="chartChange">
+        <button type="button" class="dayButton">日単位</button>
+        <button type="button" class="monthButton">月単位</button>
+      </div>
+      <div class="oneWeekChart-wrapper">
+        <canvas id="oneWeekChart"></canvas>
+        <script>
+          const $oneWeekTaskDate = @json($oneWeekTaskDate);
+          const $oneWeekTaskAchievement = @json($oneWeekTaskAchievement);
+          var ctx = document.getElementById("oneWeekChart");
+          var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: [$oneWeekTaskDate[0],$oneWeekTaskDate[1],$oneWeekTaskDate[2],$oneWeekTaskDate[3],$oneWeekTaskDate[4],$oneWeekTaskDate[5],$oneWeekTaskDate[6]],
+              datasets: [
+                {
+                  label: 'タスク達成率',
+                  data: [$oneWeekTaskAchievement[0],$oneWeekTaskAchievement[1],$oneWeekTaskAchievement[2],$oneWeekTaskAchievement[3],$oneWeekTaskAchievement[4],$oneWeekTaskAchievement[5],$oneWeekTaskAchievement[6]],
+                  borderColor: "rgba(255,255,255,1)",
+                  backgroundColor: "#4444FF"
+                },
+              ],
+            },
+            options: {
+              title: {
+                display: true,
+                text: $oneWeekTaskDate[0]+'  ~  '+$oneWeekTaskDate[6]
               },
-            ],
-          },
-          options: {
-            title: {
-              display: true,
-              text: $oneWeekTaskDate[0]+'  ~  '+$oneWeekTaskDate[6]
-            },
-            scales: {
-              yAxes: [{
-                ticks: {
-                  suggestedMax: 100,
-                  suggestedMin: 0,
-                  stepSize: 10,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMax: 100,
+                    suggestedMin: 0,
+                    stepSize: 10,
 
-                }
-              }]
+                  }
+                }]
+              },
+            }
+          });
+        </script>
+      </div>
+      <div class="monthChart-wrapper">
+        <canvas id="monthchart"></canvas>
+        <script>
+          const $monthTaskDate = @json($monthTaskDate);
+          const $monthTaskAchievement = @json($monthTaskAchievement);
+          var ctx = document.getElementById("monthchart");
+          var barChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: [$monthTaskDate[0],$monthTaskDate[1],$monthTaskDate[2],$monthTaskDate[3],$monthTaskDate[4],$monthTaskDate[5]],
+              datasets: [
+                {
+                  label: 'タスク達成率',
+                  data: [$monthTaskAchievement[0],$monthTaskAchievement[1],$monthTaskAchievement[2],$monthTaskAchievement[3],$monthTaskAchievement[4],$monthTaskAchievement[5]],
+                  borderColor: "rgba(255,255,255,1)",
+                  backgroundColor: "#4444FF"
+                },
+              ],
             },
-          }
+            options: {
+              title: {
+                display: true,
+                text: $monthTaskDate[0]+'  ~  '+$monthTaskDate[5]
+              },
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    suggestedMax: 100,
+                    suggestedMin: 0,
+                    stepSize: 10,
+                  }
+                }]
+              },
+            }
+          });
+        </script>
+      </div>
+      <script>
+        $(function() {
+	        $(".dayButton").click(function() {
+		        $(".oneWeekChart-wrapper").css("display", "block");
+            $(".monthChart-wrapper").css("display", "none");
+	        });
+        });
+
+        $(function() {
+	        $(".monthButton").click(function() {
+		        $(".oneWeekChart-wrapper").css("display", "none");
+            $(".monthChart-wrapper").css("display", "block");
+	        });
         });
       </script>
     </div>
