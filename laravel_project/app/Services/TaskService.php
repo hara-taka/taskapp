@@ -79,6 +79,70 @@ class TaskService {
         return $oneWeekTaskAchievement;
     }
 
+    //月単位のタスクの達成率
+    public function monthTaskAchievement($user_id)
+    {
+        for ($i = 0; $i < 6; $i++) {
+            $date = date("Y-m", strtotime('-'.$i .'month'));
+            $monthTaskDate[] = $date;
+        }
+
+        //月単位の日付の取得
+        $monthTaskDate = array_reverse($monthTaskDate);
+
+        for ($i = 0; $i < 6; $i++){
+            $date = date("Y-m-t", strtotime('-'.$i .'month'));
+            $date_count = mb_substr($date, -2);
+            $monthTaskDateCount[] = $date_count;
+        }
+
+        //各月の日数の取得
+        $monthTaskDateCount = array_reverse($monthTaskDateCount);
+
+        //月単位のタスク達成率計算処理
+        for($i = 0; $i < 6; $i++){
+            $count = $monthTaskDateCount[$i];
+            $dt = date($monthTaskDate[$i]."-01");
+            $dt = new Carbon($dt);
+
+            for ($j = 0; $j < $count; $j++) {
+
+                $tasks_num = Task::where('user_id',$user_id)->where('date',$dt)->count();
+                $achievement_tasks_num = Task::where('user_id',$user_id)->where('date',$dt)->where('status',2)->count();
+                if($tasks_num){
+                    $div = $achievement_tasks_num / $tasks_num;
+                    $achievment_rate = (round($div,2)) * 100;
+                }else{
+                    $achievment_rate = 0;
+                }
+
+                $taskAchievement[] = $achievment_rate;
+                $dt->addDay();
+
+            }
+            $monthTask = round((array_sum($taskAchievement))/$count);
+            $monthTaskAchievement[$i] = $monthTask;
+            $taskAchievement = [];
+
+        }
+
+        return $monthTaskAchievement;
+    }
+
+    //月単位のタスクの日にち
+    public function monthTaskAchievementDate()
+    {
+        for ($i = 0; $i < 6; $i++) {
+            $date = date("Y-m", strtotime('-'.$i .'month'));
+            $monthTaskDate[] = $date;
+        }
+
+        //月単位の日付
+        $monthTaskDate = array_reverse($monthTaskDate);
+
+        return $monthTaskDate;
+    }
+
     //ランキング（個人当日）
     public function personalTaskRanking()
     {

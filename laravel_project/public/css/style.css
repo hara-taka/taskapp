@@ -397,3 +397,16 @@ header ul li{
   margin-right: 15px;
   color: white;
 }
+
+.chartChange{
+  text-align: center;
+  margin-top: 10px;
+}
+
+.oneWeekChart-wrapper{
+  display: block;
+}
+
+.monthChart-wrapper{
+  display: none;
+}

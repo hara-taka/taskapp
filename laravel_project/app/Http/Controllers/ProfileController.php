@@ -54,7 +54,14 @@ class ProfileController extends Controller
         //一週間分のタスクの達成率
         $oneWeekTaskAchievement = TaskService::oneWeekTaskAchievement($user_id,$oneWeekTaskDate);
 
-        return view('profile.show',compact('profile','user_id','dates','dt','tasks','oneWeekTaskDate','oneWeekTaskAchievement'));
+         //月単位のタスクの達成率の日にち
+        $monthTaskDate = TaskService::monthTaskAchievementDate();
+
+        //月単位のタスクの達成率
+        $monthTaskAchievement = TaskService::monthTaskAchievement($user_id);
+
+        return view('profile.show',
+        compact('profile','user_id','dates','dt','tasks','oneWeekTaskDate','oneWeekTaskAchievement','monthTaskDate','monthTaskAchievement'));
 
     }
 
