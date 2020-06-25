@@ -151,15 +151,15 @@
       <script>
         $(function() {
 	        $(".dayButton").click(function() {
-		        $(".oneWeekChart-wrapper").css("display", "none");
-            $(".monthChart-wrapper").css("display", "block");
+		        $(".oneWeekChart-wrapper").css("display", "block");
+            $(".monthChart-wrapper").css("display", "none");
 	        });
         });
 
         $(function() {
 	        $(".monthButton").click(function() {
-		        $(".oneWeekChart-wrapper").css("display", "block");
-            $(".monthChart-wrapper").css("display", "none");
+		        $(".oneWeekChart-wrapper").css("display", "none");
+            $(".monthChart-wrapper").css("display", "block");
 	        });
         });
       </script>
