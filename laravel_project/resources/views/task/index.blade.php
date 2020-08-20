@@ -46,17 +46,13 @@
         <h1>タスク(グループ)</h1>
       </div>
       <div class="taskIndex_group">
-      @foreach($groups as $group)
-        <h2>{{$group->group->name}}</h2>
-        <h2>{{$groupsTask[$group->group->id]}}%</h2>
 
-        <!--@foreach($groups as $group)
-        <h2>{{$group->user_id}}</h2>
-        @endforeach-->
-
-      @endforeach
-
-
+      @if($groupsTask !== null)
+        @foreach($groups as $group)
+          <h2>{{$group->group->name}}</h2>
+          <h2>{{$groupsTask[$group->group->id]}}%</h2>
+        @endforeach
+      @endif
 
       </div>
     </div>

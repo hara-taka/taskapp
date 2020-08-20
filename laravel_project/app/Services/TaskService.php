@@ -428,6 +428,7 @@ class TaskService {
         }
 
         return $groupTodayData;
+
     }
 
     //グループメンバー各情報
@@ -437,20 +438,25 @@ class TaskService {
         $groupMemberCount = $members->count();
         $date = date('Y-m-d');
 
-        for($i = 0; $i < $groupMemberCount; $i++) {
+        if($groupMemberCount >0){
+            for($i = 0; $i < $groupMemberCount; $i++) {
 
-            $tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->count();
-            $achievement_tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->where('status',2)->count();
-            if($tasks_num){
-                $div = $achievement_tasks_num / $tasks_num;
-                $achievment_rate = (round($div,2)) * 100;
-            }else{
-                $achievment_rate = 0;
+                $tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->count();
+                $achievement_tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->where('status',2)->count();
+                if($tasks_num){
+                    $div = $achievement_tasks_num / $tasks_num;
+                    $achievment_rate = (round($div,2)) * 100;
+                }else{
+                    $achievment_rate = 0;
+                }
+
+                $grouptaskData[] = $achievment_rate;
+
             }
-
-            $grouptaskData[] = $achievment_rate;
-
+        }else{
+            $grouptaskData = null;
         }
+
 
         return $grouptaskData;
     }

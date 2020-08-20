@@ -27,6 +27,7 @@ class TasksTest extends TestCase
     public function testIndex()
     {
         $user = factory(User::class)->create();
+        $this->withoutExceptionHandling();
 
         $response = $this->actingAs($user)
                          ->get(route('tasks.index', ['user_id' => $user->id, 'date' => '2020-01-01']));
