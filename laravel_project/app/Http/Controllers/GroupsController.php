@@ -6,6 +6,7 @@ use App\GroupMember;
 use Auth;
 use App\Http\Requests\GroupRequest;
 use Illuminate\Http\Request;
+use TaskService;
 
 class GroupsController extends Controller
 {
@@ -48,9 +49,20 @@ class GroupsController extends Controller
 
         $members = GroupMember::where('group_id',$group_id)->get();
 
+        if($group_member_num > 0){
+            $groupInfo = TaskService::groupMemberinfo($group_id);
+            $groupMemberTaskNum = TaskService::groupMemberTaskNum($group_id);
+        }else{
+            $groupInfo = null;
+            $groupMemberTaskNum = null;
+        }
+
+
+
+
         $user_id = Auth::id();
 
-        return view('group.details',compact('group','members','group_member_num','user_id'));
+        return view('group.details',compact('group','members','group_member_num','user_id','groupInfo','groupMemberTaskNum'));
     }
 
     public function participate(int $group_id)

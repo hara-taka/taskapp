@@ -34,7 +34,15 @@ class TasksController extends Controller
         //達成率の計算処理
         $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
 
-        return view('task.index',compact('tasks','user_id','achievment_rate','date'));
+        //グループメンバータスク
+        $groups = TaskService::groupMemberTask();
+
+        $groupsTask = TaskService::groupTodayTask();
+
+        //$groupInfo = TaskService::groupMemberinfo();
+
+
+        return view('task.index',compact('tasks','user_id','achievment_rate','date','groups', 'groupsTask'));
 
     }
 
