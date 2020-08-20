@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use App\Task;
+use App\GroupMember;
 use Auth;
 use TaskService;
 
@@ -34,7 +35,18 @@ class TasksController extends Controller
         //達成率の計算処理
         $achievment_rate = TaskService::taskAchievementCalculation($user_id,$date);
 
-        return view('task.index',compact('tasks','user_id','achievment_rate','date'));
+        //グループメンバータスク
+        $groups = TaskService::groupMemberTask();
+
+        $members = GroupMember::where('user_id',$user_id)->count();
+
+        if($members > 0){
+            $groupsTask = TaskService::groupTodayTask();
+        }else{
+            $groupsTask = null;
+        }
+
+        return view('task.index',compact('tasks','user_id','achievment_rate','date','groups', 'groupsTask'));
 
     }
 

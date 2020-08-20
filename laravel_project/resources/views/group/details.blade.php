@@ -12,8 +12,26 @@
         <h1>グループ名:{{$group->name}}</h1>
         <h1>ジャンル:{{$group->category}}</h1>
         @foreach($members as $member)
-          <h1>{{$member->user->name}}</h1>
+          @if($member->user->image)
+            <img src="{{ asset('storage/' . $member->user->image) }}"><h1>{{$member->user->name}}</h1>
+          @else
+            <img src="{{ asset('/assets/img/defaultImage.png') }}"><h1>{{$member->user->name}}</h1>
+          @endif
         @endforeach
+
+        @if($groupInfo !== null)
+          @foreach($groupInfo as $task)
+            <h2>{{$task}}</h2>
+          @endforeach
+        @endif
+
+        @if($groupMemberTaskNum !== null)
+          @foreach($groupMemberTaskNum as $num)
+            <h2>{{$num}}</h2>
+          @endforeach
+        @endif
+
+
         <h1>グループ紹介</h1>
         <h2>{{$group->comment}}</h2>
         <form action="{{ route('groups.participate', ['group_id' => $group->id]) }}" method="post">

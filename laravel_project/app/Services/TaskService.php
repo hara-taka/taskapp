@@ -8,6 +8,7 @@ use App\GroupMember;
 use App\Group;
 use Carbon\Carbon;
 use UtilService;
+use Auth;
 
 class TaskService {
     //カレンダー表示用のタスク達成率の配列
@@ -253,6 +254,7 @@ class TaskService {
                 }
 
                 $grouptaskData[] = $achievment_rate;
+                var_dump($grouptaskData);
             }
 
             //グループのタスク平均計算
@@ -280,7 +282,7 @@ class TaskService {
         //ランキングのタスク達成率の配列
         $groupTodayTask = array_values($groupTodayData);
 
-        return array($groupTodayName, $groupTodayTask, $groupTodayRank);
+        return array($groupTodayName, $groupTodayTask, $groupTodayRank, $grouptaskData);
     }
 
     //ランキング（グループ一週間）
@@ -371,5 +373,110 @@ class TaskService {
 
         return $rankArray;
     }
+
+    //グループタスク関係
+    public function groupMemberTask(){
+        $user_id = Auth::id();
+
+        $groups = GroupMember::where('user_id',$user_id)->get();
+
+        return $groups;
+    }
+
+    //グループタスク達成率
+    public function groupTodayTask() {
+        $group = Group::all();
+        $groupCount = Group::all()->count();
+        $date = date('Y-m-d');
+
+        //各グループの人数の配列
+        for($i = 0; $i < $groupCount; $i++){
+            $groupMemberCount[] =  GroupMember::where('group_id',$i+1)->count();
+        }
+
+        //各グループのメンバーの配列
+        for($i = 0; $i < $groupCount; $i++){
+            $groupMember[] =  GroupMember::where('group_id',$i+1)->get();
+        }
+
+        for($i = 0; $i < $groupCount; $i++) {
+            $count = $groupMemberCount[$i];
+            for ($j = 0; $j < $count; $j++) {
+                $tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date)->count();
+                $achievement_tasks_num = Task::where('user_id',$groupMember[$i][$j]->user_id)->where('date',$date)->where('status',2)->count();
+                if($tasks_num){
+                    $div = $achievement_tasks_num / $tasks_num;
+                    $achievment_rate = (round($div,2)) * 100;
+                }else{
+                    $achievment_rate = 0;
+                }
+
+                $grouptaskData[] = $achievment_rate;
+
+            }
+
+            //グループのタスク平均計算
+            if($groupMemberCount[$i] == 0){
+                $taskData = 0;
+            } else {
+                $taskData = round((array_sum($grouptaskData))/$groupMemberCount[$i]);
+            }
+
+            //各グループのタスク平均の配列
+            $groupTodayData[$i+1] = $taskData;
+            $grouptaskData = [];
+        }
+
+        return $groupTodayData;
+
+    }
+
+    //グループメンバー各情報
+    public function groupMemberinfo($group_id) {
+
+        $members = GroupMember::where('group_id',$group_id)->get();
+        $groupMemberCount = $members->count();
+        $date = date('Y-m-d');
+
+        if($groupMemberCount >0){
+            for($i = 0; $i < $groupMemberCount; $i++) {
+
+                $tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->count();
+                $achievement_tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->where('status',2)->count();
+                if($tasks_num){
+                    $div = $achievement_tasks_num / $tasks_num;
+                    $achievment_rate = (round($div,2)) * 100;
+                }else{
+                    $achievment_rate = 0;
+                }
+
+                $grouptaskData[] = $achievment_rate;
+
+            }
+        }else{
+            $grouptaskData = null;
+        }
+
+
+        return $grouptaskData;
+    }
+
+    //グループメンバータスク数
+    public function groupMemberTaskNum($group_id) {
+        $members = GroupMember::where('group_id',$group_id)->get();
+        $groupMemberCount = $members->count();
+        $date = date('Y-m-d');
+
+        for($i = 0; $i < $groupMemberCount; $i++) {
+
+            $tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->count();
+            $achievement_tasks_num = Task::where('user_id',$members[$i]->user_id)->where('date',$date)->where('status',2)->count();
+
+            $groupMemberTaskData[] = $achievement_tasks_num . '/' . $tasks_num;
+
+        }
+        return $groupMemberTaskData;
+    }
+
 
 }

@@ -6,7 +6,7 @@
   <div class="personlTask-wrapper">
     <div class="container">
       <div class="heading">
-        <h1>タスク <span>{{$date}} 達成率{{$achievment_rate}}％</span></h1>
+        <h1>タスク(個人) <span>{{$date}} 達成率{{$achievment_rate}}％</span></h1>
       </div>
       <div class="taskCreate">
         <form action="{{ route('tasks.store', ['user_id' => $user_id,'date' => $date]) }}" method="post">
@@ -41,6 +41,19 @@
               </tr>
           @endforeach
         </table>
+      </div>
+      <div class="heading">
+        <h1>タスク(グループ)</h1>
+      </div>
+      <div class="taskIndex_group">
+
+      @if($groupsTask !== null)
+        @foreach($groups as $group)
+          <h2>{{$group->group->name}}</h2>
+          <h2>{{$groupsTask[$group->group->id]}}%</h2>
+        @endforeach
+      @endif
+
       </div>
     </div>
   </div>
