@@ -2352,6 +2352,10 @@ textarea.form-control {
   margin-left: 0;
 }
 
+.guestLogin {
+  margin-bottom: 30px;
+}
+
 .valid-feedback {
   display: none;
   width: 100%;
@@ -4547,6 +4551,7 @@ input[type=button].btn-block {
   font-size: 1.125rem;
   line-height: inherit;
   white-space: nowrap;
+  color: white !important;
 }
 
 .navbar-brand:hover,
@@ -4864,7 +4869,7 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
@@ -7043,7 +7048,11 @@ button.bg-dark:focus {
 }
 
 .bg-white {
-  background-color: #fff !important;
+  background-color: rgb(165, 151, 151) !important;
+}
+
+.bg-black {
+  background-color: black;
 }
 
 .bg-transparent {

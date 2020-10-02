@@ -16,14 +16,25 @@
         @endif
         <a href="{{ route('profile.edit', ['user_id' => $user_id]) }}" class="profileEdit">プロフィール編集</a>
         <a href="{{ route('profile.editPassword', ['user_id' => $user_id]) }}" class="passwordEdit">パスワード変更</a>
-        <h1>ユーザー名</h1>
-        <h2>{{$profile->name}}</h2>
-        <h1>性別</h1>
-        <h2>{{\App\Enums\GenderStatus::getGenderStatus($profile->gender)}}</h2>
-        <h1>年齢</h1>
-        <h2>{{$profile->age}}</h2>
-        <h1>自己紹介</h1>
-        <h2>{{$profile->comment}}</h2>
+
+        <table>
+          <tr>
+            <td><h2>ユーザー名</h2></td>
+            <td><h3>{{$profile->name}}</h3></td>
+          </tr>
+          <tr>
+            <td><h2>性別</h2></td>
+            <td><h3>{{\App\Enums\GenderStatus::getGenderStatus($profile->gender)}}</h3></td>
+          </tr>
+          <tr>
+            <td><h2>年齢</h2></td>
+            <td><h3>{{$profile->age}}</h3></td>
+          </tr>
+          <tr>
+            <td><h2>自己紹介</h2></td>
+            <td><h3>{{$profile->comment}}</h3></td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -53,7 +64,11 @@
               @endif
                 <td>
                   <a href="{{ route('tasks.index', ['user_id' => $user_id,'date' => $date]) }}">{{ $date->day}}</a></br>
+                  @if($task !== '-')
+                  {{$task}}%
+                  @else
                   {{$task}}
+                  @endif
                 </td>
               @if ($date->dayOfWeek == 6)
             </tr>
