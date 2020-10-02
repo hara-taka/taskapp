@@ -26,12 +26,13 @@
         <table>
           @foreach($tasks as $task)
               <tr class="task">
-                <td class="taskStatus">{{$task->task_status}}</td>
+                <!--<td class="taskStatus">{{$task->task_status}}</td>-->
+                <td {{ $task->task_status == '未完了' ? 'class=taskStatusIncomplete' : 'class=taskStatusComplete' }}>{{$task->task_status}}</td>
                 <td class="taskName"> {{$task->name}}</td>
-                <td>
+                <td class="taskEdit">
                   <a href="{{ route('tasks.edit', ['user_id' => $user_id,'task_id' => $task->id,'date' => $date ]) }}">編集</a>
                 </td>
-                <td>
+                <td class="taskDelete">
                   <form action="{{ route('tasks.destroy', ['user_id' => $user_id,'task_id' => $task->id,'date' => $date]) }}" method="post">
                     @method('DELETE')
                     {{csrf_field()}}
@@ -45,15 +46,22 @@
       <div class="heading">
         <h1>タスク(グループ)</h1>
       </div>
-      <div class="taskIndex_group">
+      <div class="taskIndexGroup_wrapper">
 
-      @if($groupsTask !== null)
-        @foreach($groups as $group)
-          <h2>{{$group->group->name}}</h2>
-          <h2>{{$groupsTask[$group->group->id]}}%</h2>
-        @endforeach
-      @endif
-
+        @if($groupsTask !== null)
+        <table>
+          <tr>
+            <td><h2>参加グループ</h2></td>
+            <td><h2>タスク達成率</h2></td>
+          </tr>
+          @foreach($groups as $group)
+          <tr>
+            <td class="taskIndexGroup"><h3>{{$group->group->name}}</h3></td>
+            <td class="taskIndexGroup"><h3>{{$groupsTask[$group->group->id]}}%</h3></td>
+          </tr>
+          @endforeach
+        </table>
+        @endif
       </div>
     </div>
   </div>

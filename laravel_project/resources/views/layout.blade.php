@@ -9,14 +9,33 @@
   </head>
   <body>
     <header>
-      <nav>
+      <div class="app-logo">
+        <a href="{{ route('tasks.index', ['user_id' => $user_id ]) }}"><h2>taskアプリ</h2></a>
+      </div>
+      <div>
+
+      </div>
+      <div>
         <ul>
           <li><a href="{{ route('tasks.index', ['user_id' => $user_id ]) }}">タスク</a></li>
           <li><a href="{{ route('groups.index') }}">グループ</a></li>
           <li><a href="{{ route('ranking.show') }}">ランキング</a></li>
           <li><a href="{{ route('profile.show', ['user_id' => $user_id ]) }}">プロフィール</a></li>
+          <li>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                  ログアウト
+              </a>
+
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+            </div>
+          </li>
         </ul>
-      </nav>
+      </div>
     </header>
 
     @yield('content')

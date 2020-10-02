@@ -29,8 +29,8 @@
             <option value="desc">作成された順が新しい順</option>
           </select>
           <h2 class="sort">フリーワード</h2>
-          <input type="text" name="keyword"></br>
-          <input type="submit" value="この条件で検索">
+          <input type="text" name="keyword" class="keyword"></br>
+          <input type="submit" value="この条件で検索" class="btn">
         </form>
       </div>
       <div class="groupIndex">

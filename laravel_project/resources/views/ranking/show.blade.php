@@ -12,11 +12,16 @@
         <div class="ranking">
           <h1>個人（当日）</h1>
           <table align="center">
+              <tr>
+                <td>順位</td>
+                <td>ユーザー名</td>
+                <td>タスク達成率</td>
+              </tr>
             @foreach(array_map(null,$personalTodayName, $personalTodayTask, $personalTodayRank) as [$name, $task, $rank])
               <tr>
-                <td>{{$rank}}</td>
+                <td class="taskRank">{{$rank}}</td>
                 <td class="rankName">{{$name}}</td>
-                <td>{{$task}}%</td>
+                <td class="taskAchievementRate">{{$task}}%</td>
               </tr>
             @endforeach
           </table>
@@ -24,11 +29,16 @@
         <div class="ranking">
           <h1>個人（1週間）</h1>
           <table align="center">
+              <tr>
+                <td>順位</td>
+                <td>ユーザー名</td>
+                <td>タスク達成率</td>
+              </tr>
             @foreach(array_map(null,$personalOneWeekName, $personalOneWeekTask, $personalOneWeekRank) as [$name, $task, $rank])
               <tr>
-                <td>{{$rank}}</td>
+                <td class="taskRank">{{$rank}}</td>
                 <td class="rankName">{{$name}}</td>
-                <td>{{$task}}%</td>
+                <td class="taskAchievementRate">{{$task}}%</td>
               </tr>
             @endforeach
           </table>
@@ -36,11 +46,16 @@
         <div class="ranking">
           <h1>グループ（当日）</h1>
           <table align="center">
+              <tr>
+                <td>順位</td>
+                <td>ユーザー名</td>
+                <td>タスク達成率</td>
+              </tr>
             @foreach(array_map(null,$groupTodayName, $groupTodayTask, $groupTodayRank) as [$name, $task, $rank])
               <tr>
-                <td>{{$rank}}</td>
+                <td class="taskRank">{{$rank}}</td>
                 <td class="rankName">{{$name}}</td>
-                <td>{{$task}}%</td>
+                <td class="taskAchievementRate">{{$task}}%</td>
               </tr>
             @endforeach
           </table>
@@ -48,11 +63,16 @@
         <div class="ranking">
           <h1>グループ（一週間）</h1>
           <table align="center">
+              <tr>
+                <td>順位</td>
+                <td>ユーザー名</td>
+                <td>タスク達成率</td>
+              </tr>
             @foreach(array_map(null,$groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank) as [$name, $task, $rank])
               <tr>
-                <td>{{$rank}}</td>
+                <td class="taskRank">{{$rank}}</td>
                 <td class="rankName">{{$name}}</td>
-                <td>{{$task}}%</td>
+                <td class="taskAchievementRate">{{$task}}%</td>
               </tr>
             @endforeach
           </table>

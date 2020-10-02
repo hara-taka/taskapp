@@ -13,6 +13,7 @@ h1, h2, h3, h4, h5, h6, p, div {
 
 .heading h1 {
   padding-left: 10px;
+  font-size: 30px;
   background-color: black;
   color: white;
   text-align: center;
@@ -44,14 +45,15 @@ input,select {
   width: 750px;
   height: 30px;
   margin-left: 30px;
-  margin-right: 15px;
 }
 
 .taskCreate .createTaskStatus {
   width: 200px;
-  height: 30px;
+  height: 37px;
   margin-right: 15px;
 }
+
+
 
 .taskCreate .btn {
   width: 100px;
@@ -62,25 +64,53 @@ input,select {
   margin-top: 20px
 }
 
+.taskIndex table {
+  margin-left: 50px;
+  margin-bottom: 30px;
+}
+
 .taskIndex .taskStatus {
-  padding-left: 30px;
+  padding-left: 50px;
   height: 50px;
 }
 
+.taskIndex .taskStatusIncomplete {
+  background-color: red;
+  color: white;
+  border-radius: 30px 30px 30px 30px;
+  font-size: 20px;
+  text-align: center;
+  width: 100px;
+}
+
+.taskIndex .taskStatusComplete {
+  background-color: blue;
+  color: white;
+  border-radius: 30px 30px 30px 30px;
+  font-size: 20px;
+  text-align: center;
+  width: 100px;
+}
+
 .taskIndex .taskName {
-  padding-left: 30px;
-  width: 700px;
+  padding-left: 60px;
+  padding-right: 100px;
+  width: 600px;
+  word-wrap: break-word;
 }
 
 .taskIndex a {
   margin-right: 10px;
+  text-decoration: none;
 }
+
 
 .taskIndex input {
   border:none;
   background-color:transparent;
   color:blue;
   text-decoration:underline;
+  text-decoration: none;
 }
 
 .taskIndex input:hover {
@@ -89,6 +119,34 @@ input,select {
 
 .taskIndex a,input {
   font-size: 20px
+}
+
+.taskIndexGroup_wrapper {
+  padding-bottom: 30px;
+}
+
+.taskIndexGroup_wrapper table {
+  width: 50%;
+  margin: 0 auto;
+  border-collapse:collapse;
+  border-spacing: 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.taskIndexGroup_wrapper .taskIndexGroup {
+  border-bottom: solid;
+  padding-top: 20px;
+}
+
+.taskIndexGroup_wrapper h2 {
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+
+.taskIndexGroup_wrapper h3 {
+  font-weight: normal;
 }
 
 .editTask_wrapper .error {
@@ -105,12 +163,11 @@ input,select {
   width: 750px;
   height: 30px;
   margin-left: 30px;
-  margin-right: 15px;
 }
 
 .taskEdit .editTaskStatus {
   width: 200px;
-  height: 30px;
+  height: 38px;
   margin-right: 15px;
 }
 
@@ -126,11 +183,18 @@ input,select {
   float: right;
 }
 
+.createGroupLink {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
 .searchGroup {
   float: left;
   border: 2px solid black;
   margin-left: 10px;
   margin-top: 10px;
+  text-align: center;
 }
 
 .searchGroup .search {
@@ -156,6 +220,16 @@ input,select {
   margin-bottom: 10px;
 }
 
+.searchGroup .keyword {
+  width: 180px;
+  font-size: 15px;
+}
+
+.searchGroup .btn {
+  font-size: 15px;
+
+}
+
 .groupIndex {
   display: flex;
   flex-wrap: wrap;
@@ -166,13 +240,17 @@ input,select {
 .groupIndex a {
   text-decoration: none;
   display: block;
+  color: black;
+  background-color: white;
 }
 
 .group {
-  border: 2px solid black;
+  border: 2px solid white;
   width: 200px;
   margin-left: 25px;
   margin-bottom: 25px;
+  font-size: 12px;
+  border-radius: 10px 10px 10px 10px;
 }
 
 .createGroup-wrapper .error {
@@ -185,47 +263,104 @@ input,select {
 }
 
 .createGroup {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   background-color: white;
 }
 
-.createGroup h1{
+.createGroup table td {
+  padding-top: 30px;
+}
+
+.createGroup h2{
   margin-left: 30px;
-  margin-top: 20px;
+  margin-right: 40px;
+  font-size: 20px;
 }
 
 .createGroup input,select,textarea{
   margin-left: 30px;
 }
 
+.createGroup select {
+  height: 30px;
+}
+
 .createGroup .btn {
+  margin-bottom: 20px;
+  margin : 0 auto;
+  margin-left: 320px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 .groupDetails-wrapper .container {
-  height: 700px;
+  height: 1000px;
 }
 
 .groupDetails {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   background-color: white;
 }
 
-.groupDetails h1 {
+.groupDetailsTable {
   margin-left: 30px;
-  margin-top: 20px;
 }
 
-.groupDetails h2 {
-  margin-left: 40px;
+.groupDetailsTable h2 {
+  font-size: 30px;
+  padding-top: 20px;
+}
+
+.groupDetailsTable h3 {
+  font-weight: normal;
+  padding-top: 20px;
+  padding-left: 30px;
+  width: 430px;
+}
+
+
+
+.groupDetailsTask_wrapper h1 {
+  font-size: 20px;
+  padding-left: 70px;
+  font-weight: normal;
+}
+
+.groupDetailsTask_wrapper h2 {
+  margin-left: 170px;
+  margin-top: 60px;
+  margin-bottom: 100px;
+  font-weight: normal;
+}
+
+.groupDetails img {
+  width: 70px;
+  height: 70px;
+  margin-left: 60px;
+  margin-top: 30px;
 }
 
 .groupDetails .btn {
-  margin-left: 30px;
+  margin-left: 220px;
+  margin-top: 30px;
   margin-bottom: 20px;
-  margin-top: 20px;
+}
+
+.groupDetails .taskTable {
+  width: 100%;
+  margin-top: 50px;
+  background-color: black;
+  color: white;
+}
+
+.groupDetails .taskTable td {
+  padding-left: 50px;
+}
+
+.groupDetails .taskTable .taskTable_task {
+  padding-left: 80px;
 }
 
 .profileEdit-wrapper .error{
@@ -245,6 +380,11 @@ input,select {
   background-color: white;
 }
 
+.profile table {
+  margin-top: 30px;
+  padding-bottom: 30px;
+}
+
 .profile img {
   display: block;
   width: 60%;
@@ -253,18 +393,18 @@ input,select {
   padding-bottom: 10px;
 }
 
-.profile h1,h2 {
-  width: 60%;
-  margin: 0 auto;
-}
-
-.profile h1 {
-  padding-top: 10px;
-}
-
 .profile h2 {
+  width: 120px;
   padding-left: 50px;
-  margin-bottom: 10px;
+  padding-right: 70px;
+  padding-bottom: 20px;
+}
+
+.profile h3 {
+  font-weight: normal;
+  width: 60%;
+  word-wrap: break-word;
+  padding-bottom: 20px;
 }
 
 .calendar-wrapper .heading {
@@ -275,6 +415,7 @@ input,select {
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  padding-bottom: 30px;
 }
 
 .calendar span {
@@ -309,23 +450,32 @@ input,select {
 }
 
 .profileEdit {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   background-color: white;
 }
 
-.profileEdit h1 {
+
+
+.profileEdit h2 {
   margin-left: 30px;
+  margin-right: 40px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .profileEdit input {
   margin-left: 30px;
 }
 
+.profileEdit select {
+  height: 25px;
+}
+
 .profileEdit .btn {
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 300px;
 }
 
 .editPassword-wrapper .error {
@@ -333,9 +483,11 @@ input,select {
   margin-left: 30px;
 }
 
-.editPassword h1 {
+.editPassword h2 {
   margin-left: 30px;
+  margin-right: 60px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .editPassword input {
@@ -345,10 +497,11 @@ input,select {
 .editPassword .btn {
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 300px;
 }
 
 .editPassword {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
   background-color: white;
 }
@@ -358,7 +511,7 @@ input,select {
 }
 
 .ranking-wrapper .container {
-  height: 700px;
+  height: 800px;
 }
 
 .rankings {
@@ -373,9 +526,26 @@ input,select {
   font-size: 20px;
 }
 
-.rankName {
+.ranking h1 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.ranking table td {
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+
+.ranking .rankName {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.ranking .taskRank {
+  padding-left: 10px;
+}
+
+.ranking .taskAchievementRate {
+  padding-left: 30px;
 }
 
 header {
@@ -383,18 +553,35 @@ header {
   margin-bottom: 5px;
 }
 
+header .app-logo {
+  float: left;
+}
+
+header .app-logo h2 {
+  padding-left: 30px;
+  font-weight: normal;
+  height: 55px;
+  line-height: 55px;
+
+}
+
 header ul{
   list-style: none;
   display: flex;
   justify-content: flex-end;
-  height: 80px;
+  height: 55px;
   align-items: center;
-  font-size: 25px;
-
+  font-size: 15px;
+  padding-right: 30px;
 }
 
 header ul li{
   margin-right: 15px;
+  color: white;
+}
+
+header a {
+  text-decoration: none;
   color: white;
 }
 
@@ -409,4 +596,18 @@ header ul li{
 
 .monthChart-wrapper{
   display: none;
+}
+
+.groupDetailsTask_wrapper {
+  display: flex;
+}
+
+.login-wrapper .container {
+  height: 700px;
+}
+
+.login {
+  background-color: white;
+  margin: 0 auto;
+  width: 60%;
 }

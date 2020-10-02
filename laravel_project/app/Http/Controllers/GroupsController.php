@@ -43,11 +43,17 @@ class GroupsController extends Controller
 
     public function details(int $group_id)
     {
+        $user_id = Auth::id();
+
         $group = Group::find($group_id);
 
         $group_member_num = $group->group_members->count();
 
         $members = GroupMember::where('group_id',$group_id)->get();
+
+        //テスト
+        $group_member = GroupMember::where('group_id',$group_id)->where('user_id',$user_id)->exists();
+        var_dump($group_member);
 
         if($group_member_num > 0){
             $groupInfo = TaskService::groupMemberinfo($group_id);
@@ -57,12 +63,7 @@ class GroupsController extends Controller
             $groupMemberTaskNum = null;
         }
 
-
-
-
-        $user_id = Auth::id();
-
-        return view('group.details',compact('group','members','group_member_num','user_id','groupInfo','groupMemberTaskNum'));
+        return view('group.details',compact('group','members','group_member_num','user_id','groupInfo','groupMemberTaskNum','group_member'));
     }
 
     public function participate(int $group_id)
