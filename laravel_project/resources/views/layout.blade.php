@@ -10,7 +10,7 @@
   <body>
     <header>
       <div class="app-logo">
-        <a href="{{ route('tasks.index', ['user_id' => $user_id ]) }}"><h2>taskアプリ</h2></a>
+        <a href="{{ route('tasks.index', ['user_id' => $user_id ]) }}"><h2>Task Achievement</h2></a>
       </div>
       <div>
 
