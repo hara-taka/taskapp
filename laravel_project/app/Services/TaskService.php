@@ -254,7 +254,6 @@ class TaskService {
                 }
 
                 $grouptaskData[] = $achievment_rate;
-                var_dump($grouptaskData);
             }
 
             //グループのタスク平均計算

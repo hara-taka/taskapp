@@ -48,7 +48,7 @@
           <table align="center">
               <tr>
                 <td>順位</td>
-                <td>ユーザー名</td>
+                <td>グループ名</td>
                 <td>タスク達成率</td>
               </tr>
             @foreach(array_map(null,$groupTodayName, $groupTodayTask, $groupTodayRank) as [$name, $task, $rank])
@@ -65,7 +65,7 @@
           <table align="center">
               <tr>
                 <td>順位</td>
-                <td>ユーザー名</td>
+                <td>グループ名</td>
                 <td>タスク達成率</td>
               </tr>
             @foreach(array_map(null,$groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank) as [$name, $task, $rank])
