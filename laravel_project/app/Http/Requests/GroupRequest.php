@@ -25,7 +25,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|max:20',
-            'comment' => 'max:200',
+            'comment' => 'required|max:200',
         ];
     }
 
@@ -34,6 +34,7 @@ class GroupRequest extends FormRequest
         return [
             'name.required' => 'グループ名を入力してください',
             'name.max' => '20文字以内で入力してください',
+            'comment.required' => 'グループのコメントを入力してください',
             'comment.max' => '200文字以内で入力してください',
         ];
     }
