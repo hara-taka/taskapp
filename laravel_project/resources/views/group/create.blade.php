@@ -29,6 +29,7 @@
                   <option value="sport">スポーツ</option>
                   <option value="diet">ダイエット</option>
                   <option value="sleep">睡眠</option>
+                  <option value="other">その他</option>
                 </select>
               </td>
             </tr>
@@ -43,8 +44,6 @@
             </tr>
 
           </table>
-
-
 
           <input type="submit" value="作成" class="btn">
         </form>

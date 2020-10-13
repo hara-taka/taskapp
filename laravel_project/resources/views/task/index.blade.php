@@ -26,7 +26,6 @@
         <table>
           @foreach($tasks as $task)
               <tr class="task">
-                <!--<td class="taskStatus">{{$task->task_status}}</td>-->
                 <td {{ $task->task_status == '未完了' ? 'class=taskStatusIncomplete' : 'class=taskStatusComplete' }}>{{$task->task_status}}</td>
                 <td class="taskName"> {{$task->name}}</td>
                 <td class="taskEdit">

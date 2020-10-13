@@ -296,7 +296,7 @@ input,select {
 }
 
 .groupDetails-wrapper .container {
-  height: 1000px;
+  height: 1200px;
 }
 
 .groupDetails {
@@ -323,12 +323,17 @@ input,select {
 
 .groupDetailsTask_wrapper h1 {
   font-size: 20px;
-  padding-left: 70px;
+  padding-left: 45px;
   font-weight: normal;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
 }
 
 .groupDetailsTask_wrapper h2 {
-  margin-left: 170px;
+  margin-left: 150px;
   margin-top: 60px;
   margin-bottom: 100px;
   font-weight: normal;
