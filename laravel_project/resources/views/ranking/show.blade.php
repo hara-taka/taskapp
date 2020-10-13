@@ -13,9 +13,9 @@
           <h1>個人（当日）</h1>
           <table align="center">
               <tr>
-                <td>順位</td>
-                <td>ユーザー名</td>
-                <td>タスク達成率</td>
+                <td class="title">順位</td>
+                <td class="title">ユーザー名</td>
+                <td class="title">タスク達成率</td>
               </tr>
             @foreach(array_map(null,$personalTodayName, $personalTodayTask, $personalTodayRank) as [$name, $task, $rank])
               <tr>
@@ -30,9 +30,9 @@
           <h1>個人（1週間）</h1>
           <table align="center">
               <tr>
-                <td>順位</td>
-                <td>ユーザー名</td>
-                <td>タスク達成率</td>
+                <td class="title">順位</td>
+                <td class="title">ユーザー名</td>
+                <td class="title">タスク達成率</td>
               </tr>
             @foreach(array_map(null,$personalOneWeekName, $personalOneWeekTask, $personalOneWeekRank) as [$name, $task, $rank])
               <tr>
@@ -47,9 +47,9 @@
           <h1>グループ（当日）</h1>
           <table align="center">
               <tr>
-                <td>順位</td>
-                <td>グループ名</td>
-                <td>タスク達成率</td>
+                <td class="title">順位</td>
+                <td class="title">グループ名</td>
+                <td class="title">タスク達成率</td>
               </tr>
             @foreach(array_map(null,$groupTodayName, $groupTodayTask, $groupTodayRank) as [$name, $task, $rank])
               <tr>
@@ -64,9 +64,9 @@
           <h1>グループ（一週間）</h1>
           <table align="center">
               <tr>
-                <td>順位</td>
-                <td>グループ名</td>
-                <td>タスク達成率</td>
+                <td class="title">順位</td>
+                <td class="title">グループ名</td>
+                <td class="title">タスク達成率</td>
               </tr>
             @foreach(array_map(null,$groupOneWeekName, $groupOneWeekTask, $groupOneWeekRank) as [$name, $task, $rank])
               <tr>
