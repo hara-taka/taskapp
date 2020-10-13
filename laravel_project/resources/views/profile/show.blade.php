@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td><h2>年齢</h2></td>
-            <td><h3>{{$profile->age}}歳</h3></td>
+            <td><h3>{{$profile->age}}</h3></td>
           </tr>
           <tr>
             <td><h2>自己紹介</h2></td>

@@ -510,7 +510,7 @@ input,select {
 }
 
 .ranking-wrapper .container {
-  height: 800px;
+  height: 1000px;
 }
 
 .rankings {
@@ -529,9 +529,23 @@ input,select {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.ranking table {
+  border-collapse: collapse;
+}
+
 .ranking table td {
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
   padding-bottom: 10px;
+  padding-top: 10px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.ranking table .title {
+  background-color: black;
+  color: white;
 }
 
 .ranking .rankName {
