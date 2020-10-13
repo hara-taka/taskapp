@@ -51,9 +51,7 @@ class GroupsController extends Controller
 
         $members = GroupMember::where('group_id',$group_id)->get();
 
-        //テスト
         $group_member = GroupMember::where('group_id',$group_id)->where('user_id',$user_id)->exists();
-        var_dump($group_member);
 
         if($group_member_num > 0){
             $groupInfo = TaskService::groupMemberinfo($group_id);

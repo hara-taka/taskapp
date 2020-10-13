@@ -21,6 +21,7 @@
             <option value="sport">スポーツ</option>
             <option value="diet">ダイエット</option>
             <option value="sleep">睡眠</option>
+            <option value="other">その他</option>
           </select>
           <h2 class="sort">並び替え</h2>
           <select name="sort">
