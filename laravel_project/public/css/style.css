@@ -59,7 +59,8 @@ input,select {
 
 .taskIndex {
   font-size: 25px;
-  margin-top: 20px
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
 
 .taskIndex table {

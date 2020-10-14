@@ -46,7 +46,7 @@ class TasksController extends Controller
             $groupsTask = null;
         }
 
-        return view('task.index',compact('tasks','user_id','achievment_rate','date','groups', 'groupsTask'));
+        return view('task.index',compact('tasks','user_id','achievment_rate','date'));
 
     }
 

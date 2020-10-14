@@ -42,26 +42,6 @@
           @endforeach
         </table>
       </div>
-      <div class="heading">
-        <h1>タスク(グループ)</h1>
-      </div>
-      <div class="taskIndexGroup_wrapper">
-
-        @if($groupsTask !== null)
-        <table>
-          <tr>
-            <td><h2>参加グループ</h2></td>
-            <td><h2>タスク達成率</h2></td>
-          </tr>
-          @foreach($groups as $group)
-          <tr>
-            <td class="taskIndexGroup"><h3>{{$group->group->name}}</h3></td>
-            <td class="taskIndexGroup"><h3>{{$groupsTask[$group->group->id]}}%</h3></td>
-          </tr>
-          @endforeach
-        </table>
-        @endif
-      </div>
     </div>
   </div>
 @endsection
